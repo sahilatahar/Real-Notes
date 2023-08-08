@@ -1,0 +1,112 @@
+.Card {
+    width: min(400px, 90%);
+    /* min-width: 300px; */
+    min-height: 300px;
+    backdrop-filter: blur(30px);
+    background-color: rgba(65, 65, 65, 0.308);
+    border: 1px solid rgba(255, 255, 255, 0.089);
+    padding: 2rem 2rem 3rem 2rem;
+    position: relative;
+    clip-path: polygon(100% 0, 100% 85%, 85% 100%, 0 100%, 0 0);
+    border-radius: .75rem;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+/* .Card::after {
+    content: '';
+    position: absolute;
+    right: -1%;
+    bottom: -1%;
+    width: 15%;
+    aspect-ratio: 1;
+    background-color: #212121;
+    transform: translate(45%, 45%) rotate(45deg);
+    -webkit-transform: translate(45%, 45%) rotate(45deg);
+    -moz-transform: translate(45%, 45%) rotate(45deg);
+    -ms-transform: translate(45%, 45%) rotate(45deg);
+    -o-transform: translate(45%, 45%) rotate(45deg);
+    border-left: 1px solid rgba(255, 255, 255, 0.089);
+    pointer-events: none;
+} */
+
+.card__title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 2px solid white;
+    padding-bottom: .5rem;
+}
+
+.card__description {
+    --lines: 6;
+    max-width: 100%;
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    word-break: break-all;
+
+    display: -webkit-box;
+    line-clamp: var(--lines);
+    -webkit-line-clamp: var(--lines);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.4rem;
+}
+
+.Card .buttons {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    padding-left: 1rem;
+}
+
+.Card .buttons>button {
+    width: max-content;
+    aspect-ratio: 1;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    margin-right: 1rem;
+    background: transparent;
+    border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+}
+
+.Card .buttons>button>.icon {
+    width: 2rem;
+    height: 2rem;
+}
+
+#btn-starred {
+    --clr: #f1c40f;
+    color: var(--clr);
+}
+
+#btn-edit {
+    --clr: #3498db;
+    color: var(--clr);
+}
+
+#btn-delete {
+    --clr: #e74c3c;
+    color: var(--clr);
+}
+
+#btn-starred:hover,
+#btn-edit:hover,
+#btn-delete:hover {
+    filter: drop-shadow(0px 0px 10px var(--clr));
+    -webkit-filter: drop-shadow(0px 0px 10px var(--clr));
+}
+
+@media screen and (max-width: 768px) {
+    .Card {
+        margin: auto;
+    }
+}
