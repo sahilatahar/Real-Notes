@@ -10,7 +10,7 @@
 body {
   font-family: 'Rubik', sans-serif;
   /* background-color: #2a2b2e; */
-  background-color: #212121;
+  background-color: #0d1117;
   color: #fff;
   min-height: 100dvh;
 }
@@ -23,6 +23,6 @@ body {
 }
 
 *::selection {
-  color: #212121;
+  color: #0d1117;
   background-color: rgba(167, 139, 250);
 }
