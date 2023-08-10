@@ -1,7 +1,7 @@
 import './Card.css';
 import PropTypes from 'prop-types';
 import { UilTrashAlt, UilStar, UilStarHalfAlt } from '@iconscout/react-unicons';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const Card = ({ note, deleteNote, handleNoteStar, editNote, }) => {
 
@@ -11,7 +11,7 @@ const Card = ({ note, deleteNote, handleNoteStar, editNote, }) => {
     // Handling click on card to edit note
     const handleClick = (e) => {
         const className = e.target.className;
-        if (className === 'card__title' || className === 'card__description') {
+        if (className === 'Card' || className === 'card__title' || className === 'card__description') {
             editNote(id);
         }
     }
@@ -35,4 +35,8 @@ Card.propTypes = {
     editNote: PropTypes.func.isRequired,
 }
 
-export default Card
+const NoteCard = ({ note, deleteNote, handleNoteStar, editNote, }) => {
+    return useMemo(() => <Card key={note} {...{ note, deleteNote, handleNoteStar, editNote, }} />, [note]);
+};
+
+export default NoteCard;

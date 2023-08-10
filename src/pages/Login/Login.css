@@ -72,7 +72,7 @@
 
 .input-group input:focus,
 .input-group textarea:focus {
-    border-color: rgba(167, 139, 250);
+    border-color: #9a5ee5;
 }
 
 
@@ -95,13 +95,13 @@
 
 .forgot a:hover,
 .signup a:hover {
-    text-decoration: underline rgba(167, 139, 250, 1);
+    text-decoration: underline #9a5ee5;;
 }
 
 .sign {
     display: block;
     width: 100%;
-    background-color: rgba(167, 139, 250, 1);
+    background-color: #9a5ee5;;
     padding: 0.75rem;
     text-align: center;
     color: rgba(17, 24, 39, 1);

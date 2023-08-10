@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap');
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,8 +13,11 @@
 
 body {
   font-family: 'Rubik', sans-serif;
-  /* background-color: #2a2b2e; */
-  background-color: #0d1117;
+  background: url("./images/notes-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: cover;
+  background-attachment: fixed;
   color: #fff;
   min-height: 100dvh;
 }
@@ -23,6 +30,6 @@ body {
 }
 
 *::selection {
-  color: #0d1117;
-  background-color: rgba(167, 139, 250);
+  color: #343541;
+  background-color: #9a5ee5;
 }

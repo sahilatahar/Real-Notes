@@ -2,8 +2,8 @@
     width: min(400px, 90%);
     /* min-width: 300px; */
     min-height: 300px;
-    backdrop-filter: blur(30px);
-    background-color: rgba(65, 65, 65, 0.308);
+    backdrop-filter: blur(10px);
+    background-color: rgba(65, 65, 65, .3);
     border: 1px solid rgba(255, 255, 255, 0.089);
     padding: 2rem 2rem 3rem 2rem;
     position: relative;
@@ -20,7 +20,7 @@
     bottom: -1%;
     width: 15%;
     aspect-ratio: 1;
-    background-color: #0d1117;
+    background-color: #343541;
     transform: translate(45%, 45%) rotate(45deg);
     -webkit-transform: translate(45%, 45%) rotate(45deg);
     -moz-transform: translate(45%, 45%) rotate(45deg);
@@ -38,6 +38,7 @@
     text-overflow: ellipsis;
     border-bottom: 2px solid white;
     padding-bottom: .5rem;
+    cursor: pointer;
 }
 
 .card__description {
@@ -54,6 +55,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     line-height: 1.4rem;
+    cursor: pointer;
 }
 
 .Card .buttons {
@@ -88,18 +90,12 @@
     color: var(--clr);
 }
 
-#btn-edit {
-    --clr: #3498db;
-    color: var(--clr);
-}
-
 #btn-delete {
     --clr: #e74c3c;
     color: var(--clr);
 }
 
 #btn-starred:hover,
-#btn-edit:hover,
 #btn-delete:hover {
     filter: drop-shadow(0px 0px 10px var(--clr));
     -webkit-filter: drop-shadow(0px 0px 10px var(--clr));

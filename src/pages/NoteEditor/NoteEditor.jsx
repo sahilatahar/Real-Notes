@@ -1,25 +1,30 @@
 import '../Login/Login.css';
-import './Edit.css';
+import './NoteEditor.css';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { UilAngleLeft } from '@iconscout/react-unicons';
 import PropTypes from 'prop-types';
 import Note from '../../services/Note';
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getCurrentDate } from '../../utils/dateUtils';
+import { useContext } from 'react';
+import { NotesContext } from '../../services/context';
+import { toast } from 'react-toastify';
 
-function Edit({ email, isNewPage = false }) {
+function NoteEditor({ isNewPage = false }) {
 
     // State variables
+    const { email, notes } = useContext(NotesContext);
     const navigate = useNavigate();
     const { id } = useParams(); // Note id
     const isNew = isNewPage;
+    const titleRef = useRef(null);
 
-    const [note, setNote] = useState({
-        title: !isNew ? 'Please wait...' : '', description: '', starred: false
-        , lastModified: getCurrentDate()
-    });
+    const [note, setNote] = useState(
+        !isNew ? notes.find(note => note.id === id) : {
+            title: '', description: '', starred: false
+            , lastModified: getCurrentDate()
+        });
 
     const [isBtnClicked, setIsBtnClicked] = useState(false);
 
@@ -32,66 +37,54 @@ function Edit({ email, isNewPage = false }) {
         })
     }
 
-    // Handling Form Submit
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (isBtnClicked) return;
-        setIsBtnClicked(true);
-        if (isNew) {
-            try {
-                toast.dismiss();
-                toast.success('Note added successfully', {
-                    position: toast.POSITION.TOP_CENTER,
-                    delay: 200,
-                });
-                let docRef = await Note.addNote(email, note);
-                await Note.updateNote(email, docRef.id, { id: docRef.id, ...note });
-                // console.log("Notes added success", docRef.id);
-                setIsBtnClicked(false);
-                navigate('/');
-            } catch (error) {
-                toast.dismiss();
-                toast.error("Note adding error!", {
-                    position: toast.POSITION.TOP_CENTER,
-                    delay: 200,
-                });
-            }
-        } else {
-            try {
-                toast.dismiss();
-                toast.success('Note updated successfully', {
-                    position: toast.POSITION.TOP_CENTER,
-                    delay: 200,
-                });
-                await Note.updateNote(email, id, note);
-                setIsBtnClicked(false);
-                navigate('/');
-            } catch (error) {
-                toast.dismiss();
-                toast.error("Note update error!", {
-                    position: toast.POSITION.TOP_CENTER,
-                    delay: 200,
-                });
-                console.log(error);
-            }
-        }
-    }
 
     useEffect(() => {
-        // Fetching Date from firestore
-        const fetchNote = async () => {
-            let note = await Note.getNote(email, id);
-            setNote({
-                title: note.title,
-                description: note.description,
-                starred: note.starred,
-                lastModified: getCurrentDate()
+        const fetchNote = () => {
+            setNote(note => {
+                return {
+                    ...note,
+                    lastModified: getCurrentDate()
+                }
             });
         }
         if (!isNew) {
             fetchNote();
+        } else {
+            titleRef.current.focus();
         }
-    }, []);
+    }, [isNew, email, id]);
+
+    const validateNote = () => {
+        if (note.title === '' || note.description === '') {
+            toast.dismiss();
+            toast.info('Title and description both are required!', {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 2000
+            });
+            return false;
+        }
+        return true;
+    }
+
+    // Handling Form Submit
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!validateNote()) return;
+        if (isBtnClicked) return;
+        setIsBtnClicked(true);
+        if (isNew) {
+            if (await Note.addNote(email, note)) {
+                setIsBtnClicked(false);
+                navigate('/');
+            }
+        } else {
+            if (await Note.updateNote(email, id, note)) {
+                setIsBtnClicked(false);
+                navigate('/');
+            }
+        }
+    }
 
     return (
         <>
@@ -105,7 +98,7 @@ function Edit({ email, isNewPage = false }) {
                     <form className="form" onSubmit={handleSubmit}>
                         <div className="input-group">
                             <label htmlFor="title">Title</label>
-                            <input type="text" name="title" id="title" placeholder="" onChange={handleChange} value={note.title} />
+                            <input type="text" name="title" id="title" placeholder="" onChange={handleChange} value={note.title} ref={titleRef} />
                         </div>
                         <div className="input-group">
                             <label htmlFor="description">Description</label>
@@ -119,9 +112,8 @@ function Edit({ email, isNewPage = false }) {
     )
 }
 
-Edit.propTypes = {
-    email: PropTypes.string.isRequired,
+NoteEditor.propTypes = {
     isNewPage: PropTypes.bool
 }
 
-export default Edit;
+export default NoteEditor;

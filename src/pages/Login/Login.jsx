@@ -3,12 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { app } from '../../services/firebase';
-import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
+import { useContext } from 'react';
+import { NotesContext } from '../../services/context';
 
-const Login = ({ setEmail }) => {
+const Login = () => {
 
     // State variables and Hooks
+    const { setEmail } = useContext(NotesContext);
     const navigate = useNavigate();
     const [isLogin, setIsLogin] = useState(true);
     const [userData, setUserData] = useState({ email: '', password: '', confirmPassword: '' });
@@ -90,9 +92,9 @@ const Login = ({ setEmail }) => {
                 createUserWithEmailAndPassword(auth, userData.email, userData.password)
                     .then((userCredential) => {
                         toast.dismiss();
-                        toast.warning('Please wait...', {
+                        toast.loading('Signing up...', {
                             position: toast.POSITION.TOP_CENTER,
-                            delay: 100,
+                            autoClose: 2000,
                         });
                         // Signed up 
                         const user = userCredential.user;
@@ -101,7 +103,7 @@ const Login = ({ setEmail }) => {
                         toast.dismiss();
                         toast.success('Signup successful', {
                             position: toast.POSITION.TOP_CENTER,
-                            delay: 200,
+                            autoClose: 2000,
                         });
                         navigate('/');
                     })
@@ -111,24 +113,24 @@ const Login = ({ setEmail }) => {
                                 toast.dismiss();
                                 toast.error('Email already in use', {
                                     position: toast.POSITION.TOP_CENTER,
-                                    delay: 200,
+                                    autoClose: 2000,
                                 });
                                 break;
                             case 'auth/invalid-email':
                                 toast.dismiss();
                                 toast.error('Invalid Email.', {
                                     position: toast.POSITION.TOP_CENTER,
-                                    delay: 200,
+                                    autoClose: 2000,
                                 });
                                 break;
                             case 'auth/operation-not-allowed':
-                                console.log(`Error during sign up.`,error);
+                                console.log(`Error during sign up.`, error);
                                 break;
                             case 'auth/weak-password':
                                 toast.dismiss();
                                 toast.error('Password is not strong enough. Add additional characters including special characters and numbers.', {
                                     position: toast.POSITION.TOP_CENTER,
-                                    delay: 200,
+                                    autoClose: 2000,
                                 });
                                 break;
                             default:
@@ -138,10 +140,11 @@ const Login = ({ setEmail }) => {
                     });
             } else {
                 toast.dismiss();
-                toast.warning('Please wait...', {
+                toast.loading('Logging in...', {
                     position: toast.POSITION.TOP_CENTER,
-                    delay: 100,
+                    autoClose: 100,
                 });
+
                 // Login
                 signInWithEmailAndPassword(auth, userData.email, userData.password).then((userCredential) => {
                     let user = userCredential.user;
@@ -149,7 +152,7 @@ const Login = ({ setEmail }) => {
                     toast.dismiss();
                     toast.success('Login successful', {
                         position: toast.POSITION.TOP_CENTER,
-                        delay: 200,
+                        autoClose: 2000,
                     });
                     navigate('/');
                 }).catch((error) => {
@@ -158,14 +161,14 @@ const Login = ({ setEmail }) => {
                             toast.dismiss();
                             toast.error('Wrong Password', {
                                 position: toast.POSITION.TOP_CENTER,
-                                delay: 200,
+                                autoClose: 2000,
                             });
                             break;
                         case 'auth/user-not-found':
                             toast.dismiss();
                             toast.error('Email not found', {
                                 position: toast.POSITION.TOP_CENTER,
-                                delay: 200,
+                                autoClose: 2000,
                             });
                     }
                 });
@@ -224,10 +227,6 @@ const Login = ({ setEmail }) => {
             </div>
         </div>
     )
-}
-
-Login.propTypes = {
-    setEmail: PropTypes.func.isRequired
 }
 
 export default Login;

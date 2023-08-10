@@ -1,58 +1,38 @@
 import './Home.css';
 import notesImg from '../../images/notes.png';
-import { UilPlus, UilSignout } from '@iconscout/react-unicons';
+import { UilPlus, UilSignout, UilAngleUp } from '@iconscout/react-unicons';
 import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import { db } from '../../services/firebase';
-import { collection, getDocs } from 'firebase/firestore';
-import Card from '../../components/Card/Card';
-import PropTypes from 'prop-types';
+import { useState, useContext, useEffect } from 'react';
 import noNotesImg from '../../images/no_notes.svg';
 import Note from '../../services/Note';
 import { toast } from 'react-toastify';
 import { sortNotes } from '../../utils/sortUitls';
+import NoteCard from '../../components/Card/Card';
+import { NotesContext } from '../../services/context';
+import useFetcher from '../../hooks/useFetcher';
 
-function Home({ email, setEmail }) {
-
+function Home() {
     // State variables and Hooks
+    const { notes, setNotes, starredNotes, setStarredNotes, email, setEmail } = useContext(NotesContext);
     const navigate = useNavigate();
-    const [notes, setNotes] = useState([]);
-    const [starredNotes, setStarredNotes] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const { loading } = useFetcher();
     const [activeTab, setActiveTab] = useState('all');
-
-    // Function to fetch notes from firebase
-    const fetchNotes = async (emailID) => {
-        setLoading(true);
-        try {
-            const todoRef = collection(db, emailID);
-            let querySnapshot = await getDocs(todoRef);
-            let allNotes = querySnapshot.docs.map(doc => doc.data());
-            setNotes(allNotes);
-            setStarredNotes(allNotes.filter(note => note.starred));
-            setLoading(false);
-        } catch (e) {
-            toast.dismiss();
-            toast.error('Unable to fetch your notes', {
-                position: toast.POSITION.TOP_CENTER,
-                delay: 200,
-            });
-        }
-    }
+    const [moveToTopBtn, setMoveToTopBtn] = useState(false);
 
     useEffect(() => {
-        const emailID = localStorage.getItem('email') || "";
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 800) {
+                setMoveToTopBtn(true);
+            } else {
+                setMoveToTopBtn(false);
+            }
+        });
+    }, []);
 
-        // Checking condition if email is saved and logged in then fetch notes otherwise goto login page
-        if (emailID.length > 0) {
-            setEmail(emailID);
-            fetchNotes(emailID);
-        }
-        else {
-            navigate('/login');
-        }
-    }, [navigate, setEmail]);
 
+    useEffect(() => {
+
+    }, [notes, starredNotes]);
 
     const handleTabs = (e) => {
         const className = e.target.className;
@@ -63,13 +43,8 @@ function Home({ email, setEmail }) {
     // Function to handle notes star and instar
     const handleNoteStar = async (id) => {
         let note = notes.find(note => note.id === id);
-        let { starred } = note;
-        toast.dismiss();
-        toast.success(`Note ${starred ? 'remove from starred' : 'mark as starred'}`, {
-            position: toast.POSITION.TOP_CENTER,
-            delay: 200,
-        });
-        await Note.updateNote(email, id, { ...note, starred: !starred });
+        let starred = note.starred;
+        await Note.handleNoteStar(email, id, note);
         setNotes(notes => [...notes.filter((note) => note.id !== id), { ...note, starred: !starred }]);
         if (!starred) {
             setStarredNotes(starredNotes => [...starredNotes.filter((note) => note.id !== id), { ...note, starred: !starred }]);
@@ -83,13 +58,8 @@ function Home({ email, setEmail }) {
     }
 
     const deleteNote = async (id) => {
-        toast.dismiss();
-        toast.success('Note deleted successfully', {
-            position: toast.POSITION.TOP_CENTER,
-            delay: 200,
-        });
-        setNotes(notes.filter(note => note.id !== id));
-        setStarredNotes(starredNotes.filter(note => note.id !== id));
+        setNotes(notes => notes.filter(note => note.id !== id));
+        setStarredNotes(starredNotes => starredNotes.filter(note => note.id !== id));
         await Note.deleteNote(email, id);
     }
 
@@ -99,20 +69,22 @@ function Home({ email, setEmail }) {
         toast.dismiss();
         toast.success('Log out successfully', {
             position: toast.POSITION.TOP_CENTER,
-            delay: 200,
+            autoClose: 2000,
         });
         navigate('/login');
     }
 
-    // Notes card
-    let notesCards = sortNotes(notes).map(note => <Card key={note.id} {...{ email, note, deleteNote, handleNoteStar, editNote }} />);
-
-    // Starred notes card
-    let starredCards = sortNotes(starredNotes).map(note => <Card key={note.id} {...{ email, note, deleteNote, handleNoteStar, editNote }} />);
-
     // No notes image preview
     let noNotes = (text = 'No notes found') => {
         return <div className="no-notes"><img src={noNotesImg} alt="" /><h1>{text}</h1></div>
+    }
+
+    const handleCreateBtn = () => {
+        if (moveToTopBtn) {
+            window.scrollTo(0, 0);
+            return;
+        }
+        navigate('/new');
     }
 
     return (
@@ -124,23 +96,19 @@ function Home({ email, setEmail }) {
                     <div className="all" onClick={handleTabs} style={{ borderBottom: activeTab === 'all' ? '2px solid white' : 'none' }}>All ({notes.length})</div>
                     <div className="starred-tab" onClick={handleTabs} style={{ borderBottom: activeTab !== 'all' ? '2px solid white' : 'none' }}>Starred ({starredNotes.length})</div>
                 </div>
-                {!loading ? <div className="cards" >
+                {!loading ? (<div className="cards" >
                     {activeTab === 'all' ?
-                        (notes.length > 0 ? notesCards : noNotes())
-                        : (starredNotes.length > 0 ? starredCards : noNotes('You haven\'t starred any notes yet'))}
-                </div> : <h1 className='loading'>Please wait...</h1>}
+                        (notes.length > 0 ? sortNotes(notes).map(note => <NoteCard key={note.id} {...{ email, note, deleteNote, handleNoteStar, editNote }} />) : noNotes())
+                        : (starredNotes.length > 0 ? sortNotes(starredNotes).map(note => <NoteCard key={note.id} {...{ email, note, deleteNote, handleNoteStar, editNote }} />) : noNotes('You haven\'t starred any notes yet'))}
+                </div>) : <h1 className='loading'>Please wait...</h1>}
             </div>
 
-            <button className="create-btn" onClick={() => navigate('/new')}>
-                <UilPlus className="icon" size='40' />
+            <button className="create-btn" onClick={handleCreateBtn}>
+                {moveToTopBtn ? <UilAngleUp className="icon" size='40' /> : <UilPlus className="icon" size='40' />}
             </button>
         </>
     )
 }
 
-Home.propTypes = {
-    email: PropTypes.string.isRequired,
-    setEmail: PropTypes.func.isRequired
-}
 
 export default Home;

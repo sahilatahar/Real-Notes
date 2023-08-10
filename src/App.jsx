@@ -1,33 +1,38 @@
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
-import Edit from './pages/Edit/Edit';
+import NoteEditor from './pages/NoteEditor/NoteEditor';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
+import { NotesContext } from './services/context';
 
 
 function App() {
 
-  const [email, setEmail] = useState('');
+  const [email, setEmailID] = useState('');
 
-  const setEmailID = (email) => {
-    setEmail(email);
+  const setEmail = (email) => {
+    setEmailID(email);
     localStorage.setItem('email', email);
   }
 
+  const [notes, setNotes] = useState([]);
+  const [starredNotes, setStarredNotes] = useState([]);
+
+
   return (
-    <>
+    <NotesContext.Provider value={{ notes, setNotes, starredNotes, setStarredNotes, email, setEmail }}>
       <Router>
         <Routes>
-          <Route path='/' element={<Home email={email} setEmail={setEmailID} />} />
-          <Route exact path='/login' element={<Login setEmail={setEmailID} />} />
-          <Route exact path='/new' element={<Edit email={email} isNewPage={true} />} />
-          <Route exact path='/edit/:id' element={<Edit email={email} />} />
-          <Route path='*' element={<Home email={email} setEmail={setEmailID} />} />
+          <Route path='/' element={<Home />} />
+          <Route exact path='/login' element={<Login />} />
+          <Route exact path='/new' element={<NoteEditor isNewPage={true} />} />
+          <Route exact path='/edit/:id' element={<NoteEditor />} />
+          <Route path='*' element={<Home />} />
         </Routes>
       </Router>
-      <ToastContainer />
-    </>
+      <ToastContainer transition={Zoom}/>
+    </NotesContext.Provider>
   )
 }
 
