@@ -1,0 +1,179 @@
+.Profile {
+    padding: 5rem 4rem 4rem 2rem;
+    min-height: 100vh;
+    display: flex;
+    gap: 2rem;
+}
+
+.Profile .sidebar {
+    width: 300px;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: rgba(65, 65, 65, 0.308);
+    border: 1px solid rgba(255, 255, 255, 0.089);
+}
+
+.Profile .sidebar .image-section {
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.Profile .sidebar .image-div {
+    width: 70%;
+}
+
+.Profile .sidebar .image-div img {
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.Profile .sidebar .image-div .update-image {
+    content: 'Change Image';
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    bottom: 3%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    padding: .3em 0;
+    background-color: white;
+    color: black;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+    cursor: pointer;
+}
+
+.Profile .sidebar .image-div:hover .update-image {
+    opacity: 1;
+}
+
+.Profile .main {
+    flex: 1;
+    padding: 2rem;
+    border-radius: 10px;
+    background-color: rgba(65, 65, 65, 0.308);
+    border: 1px solid rgba(255, 255, 255, 0.089);
+}
+
+.Profile .main>h1 {
+    padding-bottom: 1.5rem;
+}
+
+.Profile .name-group {
+    justify-content: start;
+    gap: 1rem;
+}
+
+.Profile .input-group label {
+    color: white;
+}
+
+.Profile .input-group input {
+    width: min(350px, 100%);
+    padding: .5rem;
+    color: white;
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.089);
+    font-size: 1.2rem;
+}
+
+.Profile .input-group input:focus {
+    border: 1px solid #fff;
+}
+
+.Profile .btn {
+    display: block;
+    background-color: #9a5ee5;
+    padding: 0.75rem 1rem;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 1rem;
+    cursor: pointer;
+}
+
+.Profile .main>hr {
+    margin: 1rem 0;
+}
+
+.Profile .main h2 {
+    padding-bottom: .5rem;
+}
+
+.danger-clr {
+    color: #e74c3c;
+}
+
+.Profile .danger-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+@media screen and (max-width: 900px) {
+    .Profile {
+        padding: 5rem 2rem 2rem 2rem;
+    }
+    .Profile .sidebar {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .Profile {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .Profile .sidebar {
+        align-self: center;
+        background: none;
+        border: 0;
+        backdrop-filter: none;
+    }
+
+    .Profile .main {
+        width: 100%;
+    }
+}
+
+/*! Implement responsiveness for mobile devices */
+
+@media screen and (max-width: 600px) {
+
+    .Profile .sidebar,
+    .Profile .main {
+        background: none;
+        border: 0;
+        backdrop-filter: none;
+    }
+
+    .Profile .main {
+        padding: 0;
+    }
+
+    .Profile .input-group input {
+        width: 100%;
+    }
+
+    .Profile .name-group {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .Profile .name-group .input-group {
+        width: 100%;
+    }
+}

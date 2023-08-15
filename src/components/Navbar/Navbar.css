@@ -1,0 +1,84 @@
+nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 4rem;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+
+nav.bg {
+    backdrop-filter: blur(30px);
+    background-color: rgba(65, 65, 65, 0.308);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.089);
+}
+
+nav .brand-title {
+    cursor: pointer;
+}
+
+.profile {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.profile .user-image {
+    height: 60%;
+    aspect-ratio: 1;
+    width: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    border-radius: .5rem;
+    margin: auto;
+}
+
+.profile .menu {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(243, 244, 246, 1);
+    border-radius: 10px;
+    backdrop-filter: blur(30px);
+    background-color: rgba(65, 65, 65, 0.308);
+    border: 1px solid rgba(255, 255, 255, 0.089);
+    display: none;
+}
+
+.profile .menu .menu-item {
+    cursor: pointer;
+    display: flex;
+}
+
+.profile .menu .menu-item .icon {
+    height: 20px;
+    width: 20px;
+    margin-right: .5rem;
+}
+
+.profile:hover .menu {
+    display: flex;
+}
+
+@media screen and (max-width: 1000px) {
+    .profile .menu {
+        left: -20%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    nav {
+        padding: 1rem;
+    }
+}

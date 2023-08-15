@@ -3,18 +3,6 @@
     padding: 0 5vw;
 }
 
-.sign-out-btn {
-    background-color: transparent;
-    border: 0;
-    outline: 0;
-    color: #fff;
-
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    cursor: pointer;
-}
-
 .Home .title {
     width: 100%;
     font-size: 4rem;
@@ -22,7 +10,7 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
-    padding: 2rem 0;
+    padding: 6rem 0 1rem 0;
     line-height: 3rem;
 }
 
@@ -79,7 +67,7 @@
 @media screen and (max-width: 830px) {
 
     .Home {
-        padding: 2rem 5vw;
+        padding: 0 5vw 0 5vw;
     }
 
     .Home .title {
@@ -105,19 +93,9 @@
         right: 1rem;
         padding: .5rem;
     }
-
-    .sign-out-btn {
-        right: 2rem;
-        width: 1.5rem;
-        height: 1.5rem;
-    }
 }
 
 @media screen and (max-width: 600px) {
-    .sign-out-btn {
-        top: 1rem;
-    }
-
     .loading {
         font-size: 1.5rem;
     }

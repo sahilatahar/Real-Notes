@@ -2,19 +2,19 @@ import '../Login/Login.css';
 import './NoteEditor.css';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
-import { UilAngleLeft } from '@iconscout/react-unicons';
 import PropTypes from 'prop-types';
-import Note from '../../services/Note';
-import 'react-toastify/dist/ReactToastify.css';
+import Note from '../../classes/Note';
 import { getCurrentDate } from '../../utils/dateUtils';
 import { useContext } from 'react';
 import { NotesContext } from '../../services/context';
-import { toast } from 'react-toastify';
+import { showToast, dismissToast } from '../../utils/toast';
+import User from '../../classes/User';
+import { AuthContext } from '../../services/AuthContext';
 
 function NoteEditor({ isNewPage = false }) {
 
     // State variables
-    const { email, notes } = useContext(NotesContext);
+    const { notes } = useContext(NotesContext);
     const navigate = useNavigate();
     const { id } = useParams(); // Note id
     const isNew = isNewPage;
@@ -27,6 +27,7 @@ function NoteEditor({ isNewPage = false }) {
         });
 
     const [isBtnClicked, setIsBtnClicked] = useState(false);
+    const { authState, setAuthState } = useContext(AuthContext);
 
     // Handling input changes
     const handleChange = (e) => {
@@ -39,6 +40,12 @@ function NoteEditor({ isNewPage = false }) {
 
 
     useEffect(() => {
+        if (!authState.isAuthenticated) {
+            (async () => {
+                setAuthState(async (data) => { return { ...data, isAuthenticated: await User.checkUserAuth() } });
+            })
+        }
+
         const fetchNote = () => {
             setNote(note => {
                 return {
@@ -47,20 +54,17 @@ function NoteEditor({ isNewPage = false }) {
                 }
             });
         }
-        if (!isNew) {
+        if (!isNew && authState.isAuthenticated) {
             fetchNote();
         } else {
             titleRef.current.focus();
         }
-    }, [isNew, email, id]);
+    }, [isNew, id]);
 
     const validateNote = () => {
         if (note.title === '' || note.description === '') {
-            toast.dismiss();
-            toast.info('Title and description both are required!', {
-                position: toast.POSITION.TOP_CENTER,
-                autoClose: 2000
-            });
+            dismissToast();
+            showToast('info', 'Title and description both are required!');
             return false;
         }
         return true;
@@ -74,12 +78,14 @@ function NoteEditor({ isNewPage = false }) {
         if (isBtnClicked) return;
         setIsBtnClicked(true);
         if (isNew) {
-            if (await Note.addNote(email, note)) {
+            const isSaved = await Note.addNote(note);
+            if (isSaved) {
                 setIsBtnClicked(false);
                 navigate('/');
             }
         } else {
-            if (await Note.updateNote(email, id, note)) {
+            const isUpdated = await Note.updateNote(id, note);
+            if (isUpdated) {
                 setIsBtnClicked(false);
                 navigate('/');
             }
@@ -89,10 +95,6 @@ function NoteEditor({ isNewPage = false }) {
     return (
         <>
             <div className='Page'>
-                <button className="back-btn" onClick={() => navigate('/')}>
-                    <UilAngleLeft className="icon" size='50' />
-                </button>
-
                 <div className="form-container">
                     <p className="title">{isNew ? 'Create Note' : 'Update Note'}</p>
                     <form className="form" onSubmit={handleSubmit}>
@@ -102,7 +104,7 @@ function NoteEditor({ isNewPage = false }) {
                         </div>
                         <div className="input-group">
                             <label htmlFor="description">Description</label>
-                            <textarea name="description" id="description" placeholder="" onChange={handleChange} rows={8} value={note.description}></textarea>
+                            <textarea name="description" id="description" placeholder="" onChange={handleChange} rows={10} value={note.description}></textarea>
                         </div>
                         <button className="sign" type='submit'>{isNew ? 'Create' : 'Update'}</button>
                     </form>
