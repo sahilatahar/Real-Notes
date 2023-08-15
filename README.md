@@ -1,8 +1,14 @@
 <h1 align='center'><a href='https://real-notes.netlify.app/'>Real-Notes</a></h1>
 
-![Real-Notes](https://github.com/sahilatahar/Real-Notes/assets/100127570/7e63ae83-0147-41d1-8068-0392834e4d69)
-
 Real-Notes is a minimalist notes app built with React and Vite. It provides an intuitive way to manage your notes seamlessly. The app features a dark-themed user interface for enhanced readability and integrates with Firebase for user authentication and data storage.
+## 📷 Screenshots
+| Home Page |
+| :-: |
+![real-note](https://github.com/sahilatahar/Real-Notes/assets/100127570/5cd37e7e-b55a-4461-bb3d-8dbcede82360)
+| Login & Signup Page |
+![real-notes-login-page](https://github.com/sahilatahar/Real-Notes/assets/100127570/146694dd-3978-4c68-9c28-9d4a31b185e5)
+| Profile Page |
+![real-notes2](https://github.com/sahilatahar/Real-Notes/assets/100127570/8c751507-46fd-442a-a9cf-6f325983d43e)
 
 ## Features
 
