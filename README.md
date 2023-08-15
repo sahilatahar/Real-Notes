@@ -4,11 +4,12 @@ Real-Notes is a minimalist notes app built with React and Vite. It provides an i
 ## 📷 Screenshots
 | Home Page |
 | :-: |
-![real-note](https://github.com/sahilatahar/Real-Notes/assets/100127570/5cd37e7e-b55a-4461-bb3d-8dbcede82360)
+![real-note](https://github.com/sahilatahar/Real-Notes/assets/100127570/b4820618-9a43-41d6-9861-18296c3ac70a)
 | Login & Signup Page |
-![real-notes-login-page](https://github.com/sahilatahar/Real-Notes/assets/100127570/146694dd-3978-4c68-9c28-9d4a31b185e5)
+![real-notes-login-page](https://github.com/sahilatahar/Real-Notes/assets/100127570/c07ceea8-77cd-42ac-8bfb-db1e304b2725)
 | Profile Page |
-![real-notes2](https://github.com/sahilatahar/Real-Notes/assets/100127570/8c751507-46fd-442a-a9cf-6f325983d43e)
+![profile-page](https://github.com/sahilatahar/Real-Notes/assets/100127570/cab6e8ba-cd21-440c-b5c1-187ad515e156)
+
 
 ## Features
 
