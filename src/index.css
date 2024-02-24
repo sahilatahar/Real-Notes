@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .input-style {
+        @apply w-full rounded-md border border-black bg-lightHover px-4 py-3 text-black focus:outline-none dark:border-white dark:bg-darkHover dark:text-white;
+    }
+
+    .submit-btn {
+        @apply block cursor-pointer self-start rounded-md bg-primary px-4 py-3 text-center text-base font-semibold text-white;
+    }
+
+    .section-heading {
+        @apply text-2xl font-semibold;
+    }
+
+    .sidebar-item,
+    #google_translate_element select {
+        @apply flex cursor-pointer items-center gap-3 rounded-lg bg-bgLight px-4 py-2 text-lg text-textLight hover:bg-lightHover dark:bg-bgDark dark:text-textDark dark:hover:bg-darkHover;
+    }
+}
+
+/* Custom Style for Google Translate Elements */
+body {
+    top: 0 !important;
+}
+
+#google_translate_element {
+    width: 250px;
+    position: fixed;
+    bottom: 5rem;
+    left: 20px;
+    z-index: 100;
+}
+
+#google_translate_element img {
+    display: none;
+}
+
+#google_translate_element select {
+    width: 100%;
+    border: 1px solid white;
+}
+
+#goog-gt-tt {
+    display: none !important;
+}
+
+font {
+    box-shadow: none !important;
+    background-color: transparent !important;
+}
+
+/* NoteCards CSS */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
