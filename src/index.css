@@ -17,7 +17,7 @@
 
     .sidebar-item,
     #google_translate_element select {
-        @apply flex cursor-pointer items-center gap-3 rounded-lg bg-bgLight px-4 py-2 text-lg text-textLight hover:bg-lightHover dark:bg-bgDark dark:text-textDark dark:hover:bg-darkHover;
+        @apply flex cursor-pointer items-center gap-3 rounded-lg bg-bgLight px-4 py-2 text-lg text-textLight dark:bg-bgDark dark:text-textDark md:hover:bg-lightHover md:dark:hover:bg-darkHover;
     }
 }
 

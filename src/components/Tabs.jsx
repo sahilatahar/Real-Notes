@@ -24,7 +24,7 @@ function Tabs() {
         }`;
 
     return (
-        <nav className="sticky flex select-none gap-4 pl-4 text-base md:text-lg">
+        <nav className="flex select-none gap-4 text-base md:text-lg">
             <button className={getClassNames()} onClick={handleTabs}>
                 All ({notes.length})
             </button>

@@ -25,7 +25,7 @@ function NoteCards() {
     }
 
     return (
-        <div className="cards-grid w-full py-4 sm:flex-row">
+        <div className="cards-grid py-4 sm:flex-row">
             {sortNotes(!isStarredTab ? notes : starredNotes).map((note) => (
                 <NoteCard key={note.id} note={note} />
             ))}

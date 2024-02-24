@@ -67,8 +67,8 @@ function NoteEditor({ isNewPage = false }) {
 
     return (
         <>
-            <div className="h-auto min-h-screen flex-grow items-center justify-center overflow-y-auto sm:flex">
-                <div className="rounded-xl p-4 text-textLight dark:text-textDark sm:w-2/3 sm:bg-cardLight sm:p-8 sm:dark:bg-cardDark md:w-[400px]">
+            <div className="max-h-screen min-h-screen flex-grow items-center justify-center overflow-y-auto pb-12 sm:flex md:pb-0">
+                <div className="rounded-xl p-4 text-textLight dark:text-textDark sm:w-2/3 sm:bg-cardLight sm:p-8 sm:dark:bg-cardDark md:h-auto md:w-[400px]">
                     <p className="py-8 text-center text-3xl font-bold leading-8 md:py-4">
                         {isNew ? "Create Note" : "Update Note"}
                     </p>
@@ -99,7 +99,7 @@ function NoteEditor({ isNewPage = false }) {
                                 className="input-style"
                             ></textarea>
                         </div>
-                        <button className="submit-btn" type="submit">
+                        <button className="submit-btn w-full" type="submit">
                             {isNew ? "Create" : "Update"}
                         </button>
                     </form>

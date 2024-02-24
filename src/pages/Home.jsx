@@ -3,8 +3,10 @@ import FloatingActionButton from "../components/FloatingActionButton";
 import Header from "../components/Header";
 import NoteCards from "../components/NoteCards/NoteCards";
 import Tabs from "../components/Tabs";
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 function Home() {
+    const { isMobile } = useWindowDimensions();
     // Hide Google Translate Element when Sidebar is closed
     useEffect(() => {
         const googleTranslateElement = document.getElementById(
@@ -14,11 +16,11 @@ function Home() {
     }, []);
 
     return (
-        <div className="max-h-screen flex-grow overflow-y-scroll px-2 md:px-8">
+        <div className="max-h-screen flex-grow overflow-y-scroll px-3 md:px-8">
             <Header />
             <Tabs />
             <NoteCards />
-            <FloatingActionButton />
+            {!isMobile && <FloatingActionButton />}
         </div>
     );
 }

@@ -14,7 +14,7 @@ const Card = ({ note }) => {
 
     return (
         <div
-            className="relative mx-auto min-h-[300px] w-full max-w-[400px] cursor-pointer select-none rounded-xl bg-cardLight p-6 px-4 shadow-lg hover:shadow-lg dark:border-white dark:bg-cardDark md:mx-0 md:w-full"
+            className="relative mx-auto min-h-[300px] w-[95%] max-w-[400px] cursor-pointer select-none rounded-xl bg-cardLight p-6 px-4 shadow-lg hover:shadow-lg dark:border-white dark:bg-cardDark md:mx-0"
             onClick={handleClick}
         >
             <h2 className="mb-4 overflow-hidden text-ellipsis border-b-2 border-black pb-2 text-2xl font-semibold dark:border-white md:text-3xl">

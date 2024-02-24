@@ -1,4 +1,4 @@
-import { SignOut, User, Sun, House, List } from "@phosphor-icons/react";
+import { House, List, Plus, SignOut, Sun, User } from "@phosphor-icons/react";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
@@ -64,14 +64,28 @@ const Sidebar = () => {
 
     return (
         <aside
-            className="flex h-screen select-none flex-col justify-between border-r-2 bg-bgLight pb-4 dark:border-darkHover dark:bg-bgDark sm:border-lightHover sm:bg-bgLight"
-            style={{
-                width: isSidebarOpen ? "300px" : "50px",
-                minWidth: isSidebarOpen ? "300px" : "50px",
-                padding: isSidebarOpen ? "1rem" : "1rem 0",
-            }}
+            className="fixed bottom-0 left-0 z-30 flex w-full select-none justify-between border-r-2 border-t-2 border-t-cardLight bg-bgLight px-4 dark:border-darkHover dark:border-t-cardDark dark:bg-bgDark sm:border-lightHover sm:bg-bgLight md:static md:h-screen md:flex-col md:justify-start md:p-0 md:pb-4"
+            style={
+                !isMobile
+                    ? {
+                          width: isSidebarOpen ? "300px" : "50px",
+                          minWidth: isSidebarOpen ? "300px" : "50px",
+                          padding: isSidebarOpen ? "1rem" : "1rem 0",
+                      }
+                    : {}
+            }
         >
-            {/* Logo Section */}
+            {/* Add button only for mobile devices */}
+            {isMobile && (
+                <button
+                    className={`sidebar-item ${
+                        !isSidebarOpen ? "justify-center px-0" : ""
+                    }`}
+                    onClick={() => navigate("/new")}
+                >
+                    <Plus size="30" />
+                </button>
+            )}
             <section>
                 {!isMobile && (
                     <div className="mb-2 flex h-[50px] w-full items-center justify-center">
@@ -83,13 +97,12 @@ const Sidebar = () => {
                                 Real Notes
                             </h1>
                         )}
-
                         <button onClick={handleSidebarToggle}>
                             <List size={32} />
                         </button>
                     </div>
                 )}
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-row gap-8 md:flex-col md:gap-2">
                     {menuItems.map((item, index) => (
                         <button
                             key={index}
@@ -107,7 +120,7 @@ const Sidebar = () => {
                 </div>
             </section>
             <button
-                className={`sidebar-item lg: -translate-y-20 md:translate-y-0 ${
+                className={`sidebar-item mt-auto ${
                     !isSidebarOpen ? "justify-center px-0" : ""
                 }`}
                 onClick={signOut}

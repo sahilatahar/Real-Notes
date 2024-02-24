@@ -140,7 +140,7 @@ function Profile() {
     };
 
     return (
-        <div className="flex max-h-screen flex-grow flex-col items-center gap-6 overflow-y-scroll px-4 py-8 sm:p-10 lg:flex-row lg:items-start lg:justify-center">
+        <div className="flex max-h-screen flex-grow flex-col items-center gap-6 overflow-y-scroll px-4 py-8 pb-16 sm:p-10 md:pb-8 lg:flex-row lg:items-start lg:justify-center">
             <div className="w-[250px] rounded-2xl bg-cardLight p-4 shadow-lg dark:bg-cardDark md:p-4">
                 <img
                     src={userData.imgURL}
