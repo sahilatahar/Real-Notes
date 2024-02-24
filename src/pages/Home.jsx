@@ -16,7 +16,7 @@ function Home() {
     }, []);
 
     return (
-        <div className="max-h-screen flex-grow overflow-y-scroll px-3 md:px-8">
+        <div className="max-h-screen flex-grow overflow-y-scroll px-3 pb-12  md:px-8 md:pb-0">
             <Header />
             <Tabs />
             <NoteCards />

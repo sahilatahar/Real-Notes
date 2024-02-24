@@ -57,7 +57,7 @@ function NoteEditor({ isNewPage = false }) {
                 navigate("/");
             }
         } else {
-            const isUpdated = await updateNoteAction(id, noteData, dispatch);
+            const isUpdated = await updateNoteAction(noteData, dispatch);
             if (isUpdated) {
                 setIsBtnClicked(false);
                 navigate("/");

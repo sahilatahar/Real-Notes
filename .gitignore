@@ -27,3 +27,5 @@ dist-ssr
 .TODO
 TODO.md
 .env
+# Local Netlify folder
+.netlify
