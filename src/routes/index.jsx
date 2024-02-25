@@ -22,7 +22,7 @@ const routes = createBrowserRouter([
     },
     {
         path: "/new",
-        element: <ProtectedRoute component={NoteEditor} isNewPage={true} />,
+        element: <ProtectedRoute component={NoteEditor} isNew={true} />,
     },
     {
         path: "/edit/:id",

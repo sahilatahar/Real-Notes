@@ -73,13 +73,13 @@ const Sidebar = () => {
         !isMobile
             ? isSidebarOpen
                 ? "w-[300px] min-w-[300px] px-2"
-                : "w-[50px] min-w-[50px] px-0"
+                : "w-[50px] min-w-[50px] md:px-0"
             : "";
 
     return (
         <aside
             className={
-                "fixed bottom-0 left-0 z-30 flex w-full select-none justify-between border-r-2 border-t-2 border-t-cardLight bg-bgLight py-1 dark:border-darkHover dark:border-t-cardDark dark:bg-bgDark sm:border-lightHover sm:bg-bgLight md:static md:h-screen md:w-auto md:flex-col md:pb-4 " +
+                "fixed bottom-0 left-0 z-30 flex w-full select-none justify-between border-r-2 border-t-2 border-t-cardLight bg-bgLight px-2 py-1 dark:border-darkHover dark:border-t-cardDark dark:bg-bgDark sm:border-lightHover sm:bg-bgLight md:static md:h-screen md:w-auto md:flex-col md:pb-4 " +
                 sidebarConditionalClassNames()
             }
         >

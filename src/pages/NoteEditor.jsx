@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,16 +6,18 @@ import { selectNoteById } from "../app/redux/notesSlice";
 import { getCurrentDate } from "../utils/dateUtils";
 import { dismissToast, showToast } from "../utils/toast";
 import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 
-function NoteEditor({ isNewPage = false }) {
+function NoteEditor({ isNew = false }) {
     // State variables
     const { id } = useParams();
     const note = useSelector((state) => selectNoteById(state, id));
     const navigate = useNavigate();
-    const isNew = isNewPage;
     const titleRef = useRef(null);
     const dispatch = useDispatch();
-    const [noteState, setNoteState] = useState({});
+    const [noteState, setNoteState] = useState(
+        isNew ? { title: "", description: "" } : note,
+    );
     const [isBtnClicked, setIsBtnClicked] = useState(false);
     const { t } = useTranslation();
     const { title, label, btnLabel } = t("NoteEditor");
@@ -51,7 +52,7 @@ function NoteEditor({ isNewPage = false }) {
             lastModified: getCurrentDate(),
             starred: false,
         };
-        if (isNew) {
+        if (isNew.current) {
             const isSaved = await addNoteAction(noteData, dispatch);
             if (isSaved) {
                 setIsBtnClicked(false);
@@ -68,10 +69,7 @@ function NoteEditor({ isNewPage = false }) {
 
     useEffect(() => {
         if (isNew) {
-            titleRef.current.focus();
             setNoteState({ title: "", description: "" });
-        } else {
-            setNoteState(note);
         }
     }, [isNew, note]);
 
@@ -80,7 +78,7 @@ function NoteEditor({ isNewPage = false }) {
             <div className="max-h-screen min-h-screen flex-grow items-center justify-center overflow-y-auto pb-12 sm:flex md:pb-0">
                 <div className="rounded-xl p-4 text-textLight dark:text-textDark sm:w-2/3 sm:bg-cardLight sm:p-8 sm:dark:bg-cardDark md:h-auto md:w-[400px]">
                     <p className="py-8 text-center text-3xl font-bold leading-8 md:py-4">
-                        {isNew ? title.create : title.update}
+                        {isNew.current ? title.create : title.update}
                     </p>
                     <form
                         className="flex flex-col gap-4"
@@ -112,7 +110,7 @@ function NoteEditor({ isNewPage = false }) {
                             ></textarea>
                         </div>
                         <button className="submit-btn w-full" type="submit">
-                            {isNew ? btnLabel.create : btnLabel.update}
+                            {isNew.current ? btnLabel.create : btnLabel.update}
                         </button>
                     </form>
                 </div>
@@ -122,7 +120,7 @@ function NoteEditor({ isNewPage = false }) {
 }
 
 NoteEditor.propTypes = {
-    isNewPage: PropTypes.bool,
+    isNew: PropTypes.bool,
 };
 
 export default NoteEditor;
