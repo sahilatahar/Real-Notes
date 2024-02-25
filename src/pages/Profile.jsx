@@ -3,6 +3,7 @@ import tempProfileImage from "../assets/profile.png";
 import AuthContext from "../context/AuthContext";
 import UserAuth from "../firebase/UserAuth";
 import { dismissToast, showToast } from "../utils/toast";
+import { useTranslation } from "react-i18next";
 
 function Profile() {
     const [userData, setUserData] = useState({
@@ -16,6 +17,8 @@ function Profile() {
     const inputFileRef = useRef(null);
 
     const { authState, setAuthState } = useContext(AuthContext);
+    const { t } = useTranslation();
+    const { btnLabel, description, label, title } = t("Profile");
 
     useEffect(() => {
         if (authState.isAuthenticated && authState.user === null) {
@@ -140,7 +143,7 @@ function Profile() {
     };
 
     return (
-        <div className="flex max-h-screen flex-grow flex-col items-center gap-6 overflow-y-scroll px-4 py-8 pb-16 sm:p-10 md:pb-8 lg:flex-row lg:items-start lg:justify-center">
+        <div className="flex max-h-screen flex-grow flex-col items-center gap-6 overflow-y-scroll px-4 py-8 pb-[4.5rem] sm:p-10 md:pb-8 lg:flex-row lg:items-start lg:justify-center">
             <div className="w-[250px] rounded-2xl bg-cardLight p-4 shadow-lg dark:bg-cardDark md:p-4">
                 <img
                     src={userData.imgURL}
@@ -152,7 +155,7 @@ function Profile() {
                     className="mt-4 w-full rounded-md bg-primary p-2 text-white"
                     onClick={updateImage}
                 >
-                    Change Image
+                    {btnLabel.changeImg}
                 </button>
                 <input
                     type="file"
@@ -163,10 +166,10 @@ function Profile() {
             </div>
             <main className="flex w-full flex-col gap-8 rounded-xl bg-bgLight dark:bg-bgDark lg:w-2/3">
                 <section className="flex flex-col gap-4 rounded-xl bg-cardLight p-6 shadow-lg dark:bg-cardDark">
-                    <h1 className="section-heading">Personal Info</h1>
+                    <h1 className="section-heading">{title.personalInfo}</h1>
                     <div className="flex flex-col justify-start gap-4 sm:flex-row">
                         <div className="flex flex-grow flex-col gap-1">
-                            <label htmlFor="fName">First Name</label>
+                            <label htmlFor="fName">{label.fName}</label>
                             <input
                                 type="text"
                                 name="fName"
@@ -177,7 +180,7 @@ function Profile() {
                             />
                         </div>
                         <div className="flex flex-grow flex-col gap-1">
-                            <label htmlFor="lName">Last Name</label>
+                            <label htmlFor="lName">{label.lName}</label>
                             <input
                                 type="text"
                                 name="lName"
@@ -189,14 +192,14 @@ function Profile() {
                         </div>
                     </div>
                     <button className="submit-btn" onClick={updateName}>
-                        Update Name
+                        {btnLabel.updateName}
                     </button>
                 </section>
                 <section className="flex flex-col gap-4 rounded-xl bg-cardLight p-6 shadow-lg dark:bg-cardDark ">
-                    <h2 className="section-heading">Change Password</h2>
+                    <h2 className="section-heading">{title.changePass}</h2>
                     <div className="flex flex-col justify-start gap-6 sm:flex-row">
                         <div className="flex flex-grow flex-col gap-1">
-                            <label htmlFor="newPassword">New Password</label>
+                            <label htmlFor="newPassword">{label.newPass}</label>
                             <input
                                 type="password"
                                 name="newPassword"
@@ -208,7 +211,7 @@ function Profile() {
                         </div>
                         <div className="flex flex-grow flex-col gap-1">
                             <label htmlFor="confirmNewPassword">
-                                Confirm New Password
+                                {label.confirmPass}
                             </label>
                             <input
                                 type="text"
@@ -221,27 +224,25 @@ function Profile() {
                         </div>
                     </div>
                     <button className="submit-btn" onClick={changePassword}>
-                        Change Password
+                        {btnLabel.changePass}
                     </button>
                 </section>
                 <section className="flex flex-col gap-4 rounded-xl bg-cardLight p-6 shadow-lg dark:bg-cardDark ">
-                    <h2 className="section-heading">Reset Password</h2>
+                    <h2 className="section-heading">{title.resetPass}</h2>
                     <button className="submit-btn" onClick={sendResetEmail}>
-                        Send reset e-mail
+                        {btnLabel.resetEmail}
                     </button>
                 </section>
                 <section className="flex flex-col gap-4 rounded-xl bg-cardLight p-6 shadow-lg dark:bg-cardDark ">
-                    <h2 className="section-heading text-danger">Danger Zone</h2>
-                    <p>
-                        Deleting your Real-Notes account is irreversible and
-                        will permanently erase all your notes and data. Thank
-                        you for using Real-Notes.
-                    </p>
+                    <h2 className="section-heading text-danger">
+                        {title.dangerZone}
+                    </h2>
+                    <p>{description.delete}</p>
                     <button
                         className="submit-btn bg-danger text-white"
                         onClick={deleteUserAccount}
                     >
-                        Delete Account
+                        {btnLabel.deleteAcc}
                     </button>
                 </section>
             </main>

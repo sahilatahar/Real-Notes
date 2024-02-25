@@ -2,10 +2,13 @@ import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { selectNotesAndStarredNotes } from "../app/redux/notesSlice";
 import TabContext from "../context/TabContext";
+import { useTranslation } from "react-i18next";
 
 function Tabs() {
     const { notes, starredNotes } = useSelector(selectNotesAndStarredNotes);
     const { isStarredTab, setIsStarredTab } = useContext(TabContext);
+    const { t } = useTranslation();
+    const { all, starred } = t("Home.tabs");
 
     const handleTabs = (e) => {
         const name = e.target.getAttribute("data-name");
@@ -26,14 +29,16 @@ function Tabs() {
     return (
         <nav className="flex select-none gap-4 text-base md:text-lg">
             <button className={getClassNames()} onClick={handleTabs}>
-                All ({notes.length})
+                <span>{all}</span>
+                <span> ({notes.length})</span>
             </button>
             <button
                 className={getClassNames(true)}
                 onClick={handleTabs}
                 data-name="starred"
             >
-                Starred ({starredNotes.length})
+                <span data-name="starred">{starred}</span>
+                <span> ({starredNotes.length})</span>
             </button>
         </nav>
     );

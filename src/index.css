@@ -15,41 +15,9 @@
         @apply text-2xl font-semibold;
     }
 
-    .sidebar-item,
-    #google_translate_element select {
-        @apply flex cursor-pointer items-center gap-3 rounded-lg bg-bgLight px-4 py-2 text-lg text-textLight dark:bg-bgDark dark:text-textDark md:hover:bg-lightHover md:dark:hover:bg-darkHover;
+    .sidebar-item {
+        @apply flex cursor-pointer items-center gap-3 rounded-lg bg-bgLight px-2 py-2 text-lg text-textLight dark:bg-bgDark dark:text-textDark md:hover:bg-lightHover md:dark:hover:bg-darkHover;
     }
-}
-
-/* Custom Style for Google Translate Elements */
-body {
-    top: 0 !important;
-}
-
-#google_translate_element {
-    width: 250px;
-    position: fixed;
-    bottom: 5rem;
-    left: 20px;
-    z-index: 100;
-}
-
-#google_translate_element img {
-    display: none;
-}
-
-#google_translate_element select {
-    width: 100%;
-    border: 1px solid white;
-}
-
-#goog-gt-tt {
-    display: none !important;
-}
-
-font {
-    box-shadow: none !important;
-    background-color: transparent !important;
 }
 
 /* NoteCards CSS */

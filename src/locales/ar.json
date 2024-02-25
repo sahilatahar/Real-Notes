@@ -1,0 +1,58 @@
+{
+    "Sidebar": {
+        "title": "ملاحظات حقيقية",
+        "btnLabel": {
+            "home": "الصفحة الرئيسية",
+            "profile": "الملف الشخصي",
+            "theme": "السمة",
+            "changeLang": "تغيير اللغة",
+            "chooseLang": "اختر اللغة",
+            "logout": "تسجيل الخروج"
+        }
+    },
+    "Home": {
+        "tabs": {
+            "all": "الكل",
+            "starred": "مُشار إليه"
+        },
+        "title": "ملاحظاتك"
+    },
+    "NoteEditor": {
+        "btnLabel": {
+            "create": "إنشاء",
+            "update": "تحديث"
+        },
+        "label": {
+            "description": "الوصف",
+            "title": "العنوان"
+        },
+        "title": {
+            "create": "إنشاء مذكرة",
+            "update": "تحديث المذكرة"
+        }
+    },
+    "Profile": {
+        "btnLabel": {
+            "changePass": "تغيير كلمة المرور",
+            "deleteAcc": "حذف الحساب",
+            "resetEmail": "إرسال بريد إلكتروني لإعادة التعيين",
+            "updateName": "تحديث الاسم",
+            "changeImg": "تغيير الصورة"
+        },
+        "description": {
+            "delete": "حذف حساب Real-Notes الخاص بك غير قابل للاسترداد وسيقوم بمحو جميع ملاحظاتك وبياناتك بشكل دائم. شكرًا لاستخدام Real-Notes."
+        },
+        "label": {
+            "confirmPass": "تأكيد كلمة المرور",
+            "fName": "الاسم الأول",
+            "lName": "الاسم الأخير",
+            "newPass": "كلمة مرور جديدة"
+        },
+        "title": {
+            "changePass": "تغيير كلمة المرور",
+            "dangerZone": "منطقة الخطر",
+            "personalInfo": "المعلومات الشخصية",
+            "resetPass": "إعادة تعيين كلمة المرور"
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "Sidebar": {
+        "title": "Real Notes",
+        "btnLabel": {
+            "home": "Home",
+            "profile": "Profile",
+            "theme": "Theme",
+            "changeLang": "Change Language",
+            "chooseLang": "Choose Language",
+            "logout": "Log out"
+        }
+    },
+    "Home": {
+        "tabs": {
+            "all": "All",
+            "starred": "Starred"
+        },
+        "title": "Your Notes"
+    },
+    "NoteEditor": {
+        "btnLabel": {
+            "create": "Create",
+            "update": "Update"
+        },
+        "label": {
+            "description": "Description",
+            "title": "Title"
+        },
+        "title": {
+            "create": "Create Note",
+            "update": "Update Note"
+        }
+    },
+    "Profile": {
+        "btnLabel": {
+            "changePass": "Change Password",
+            "deleteAcc": "Delete Account",
+            "resetEmail": "Send reset e-mail",
+            "updateName": "Update Name",
+            "changeImg": "Change Image"
+        },
+        "description": {
+            "delete": "Deleting your Real-Notes account is irreversible and will permanently erase all your notes and data. Thank you for using Real-Notes."
+        },
+        "label": {
+            "confirmPass": "Confirm Password",
+            "fName": "First Name",
+            "lName": "Last Name",
+            "newPass": "New Password"
+        },
+        "title": {
+            "changePass": "Change Password",
+            "dangerZone": "Danger Zone",
+            "personalInfo": "Personal Info",
+            "resetPass": "Reset Password"
+        }
+    }
+}

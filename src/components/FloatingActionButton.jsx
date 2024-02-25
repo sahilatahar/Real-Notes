@@ -8,8 +8,10 @@ function FloatingActionButton() {
 
     // Function to handle notes star and instar
     const handleCreateBtn = () => {
+        const home = document.getElementById("home");
+
         if (showScrollToTop) {
-            window.scrollTo(0, 0);
+            home.scrollTo(0, 0);
         } else {
             navigate("/new");
         }

@@ -1,0 +1,58 @@
+{
+    "Sidebar": {
+        "title": "रियल नोट्स",
+        "btnLabel": {
+            "home": "होम",
+            "profile": "प्रोफ़ाइल",
+            "theme": "थीम",
+            "changeLang": "भाषा बदलें",
+            "chooseLang": "भाषा चुनें",
+            "logout": "लॉग आउट"
+        }
+    },
+    "Home": {
+        "tabs": {
+            "all": "सभी",
+            "starred": "स्टार की गई"
+        },
+        "title": "आपके नोट"
+    },
+    "NoteEditor": {
+        "btnLabel": {
+            "create": "बनाएं",
+            "update": "अपडेट करें"
+        },
+        "label": {
+            "description": "विवरण",
+            "title": "शीर्षक"
+        },
+        "title": {
+            "create": "नोट बनाएं",
+            "update": "नोट अपडेट करें"
+        }
+    },
+    "Profile": {
+        "btnLabel": {
+            "changePass": "पासवर्ड बदलें",
+            "deleteAcc": "खाता हटाएं",
+            "resetEmail": "रीसेट ईमेल भेजें",
+            "updateName": "नाम अपडेट करें",
+            "changeImg": "तस्वीर बदलें"
+        },
+        "description": {
+            "delete": "आपके रियल-नोट्स खाते को हटाना अप्रत्याशित है और इससे सभी आपके नोट्स और डेटा स्थायी रूप से मिट जाएंगे। रियल-नोट्स का उपयोग करने के लिए धन्यवाद।"
+        },
+        "label": {
+            "confirmPass": "पासवर्ड की पुष्टि करें",
+            "fName": "पहला नाम",
+            "lName": "अंतिम नाम",
+            "newPass": "नया पासवर्ड"
+        },
+        "title": {
+            "changePass": "पासवर्ड बदलें",
+            "dangerZone": "खतरे का क्षेत्र",
+            "personalInfo": "व्यक्तिगत जानकारी",
+            "resetPass": "पासवर्ड रीसेट करें"
+        }
+    }
+}

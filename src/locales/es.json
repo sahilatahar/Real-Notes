@@ -1,0 +1,58 @@
+{
+    "Sidebar": {
+        "title": "Notas Reales",
+        "btnLabel": {
+            "home": "Inicio",
+            "profile": "Perfil",
+            "theme": "Tema",
+            "changeLang": "Cambiar idioma",
+            "chooseLang": "Seleccionar idioma",
+            "logout": "Cerrar sesión"
+        }
+    },
+    "Home": {
+        "tabs": {
+            "all": "Todos",
+            "starred": "Destacados"
+        },
+        "title": "Tus Notas"
+    },
+    "NoteEditor": {
+        "btnLabel": {
+            "create": "Crear",
+            "update": "Actualizar"
+        },
+        "label": {
+            "description": "Descripción",
+            "title": "Título"
+        },
+        "title": {
+            "create": "Crear Nota",
+            "update": "Actualizar Nota"
+        }
+    },
+    "Profile": {
+        "btnLabel": {
+            "changePass": "Cambiar Contraseña",
+            "deleteAcc": "Eliminar Cuenta",
+            "resetEmail": "Enviar correo electrónico de restablecimiento",
+            "updateName": "Actualizar Nombre",
+            "changeImg": "Cambiar Imagen"
+        },
+        "description": {
+            "delete": "La eliminación de tu cuenta de Real-Notes es irreversible y eliminará permanentemente todas tus notas y datos. Gracias por usar Real-Notes."
+        },
+        "label": {
+            "confirmPass": "Confirmar Contraseña",
+            "fName": "Nombre",
+            "lName": "Apellido",
+            "newPass": "Nueva Contraseña"
+        },
+        "title": {
+            "changePass": "Cambiar Contraseña",
+            "dangerZone": "Zona Peligrosa",
+            "personalInfo": "Información Personal",
+            "resetPass": "Restablecer Contraseña"
+        }
+    }
+}

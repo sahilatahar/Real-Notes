@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { addNoteAction, updateNoteAction } from "../app/redux/actions";
 import { selectNoteById } from "../app/redux/notesSlice";
 import { getCurrentDate } from "../utils/dateUtils";
 import { dismissToast, showToast } from "../utils/toast";
+import { useTranslation } from "react-i18next";
 
 function NoteEditor({ isNewPage = false }) {
     // State variables
@@ -15,10 +16,10 @@ function NoteEditor({ isNewPage = false }) {
     const isNew = isNewPage;
     const titleRef = useRef(null);
     const dispatch = useDispatch();
-    const [noteState, setNoteState] = useState(
-        isNewPage ? { title: "", description: "" } : note,
-    );
+    const [noteState, setNoteState] = useState({});
     const [isBtnClicked, setIsBtnClicked] = useState(false);
+    const { t } = useTranslation();
+    const { title, label, btnLabel } = t("NoteEditor");
 
     // Handling input changes
     const handleChange = (e) => {
@@ -65,19 +66,28 @@ function NoteEditor({ isNewPage = false }) {
         }
     };
 
+    useEffect(() => {
+        if (isNew) {
+            titleRef.current.focus();
+            setNoteState({ title: "", description: "" });
+        } else {
+            setNoteState(note);
+        }
+    }, [isNew, note]);
+
     return (
         <>
             <div className="max-h-screen min-h-screen flex-grow items-center justify-center overflow-y-auto pb-12 sm:flex md:pb-0">
                 <div className="rounded-xl p-4 text-textLight dark:text-textDark sm:w-2/3 sm:bg-cardLight sm:p-8 sm:dark:bg-cardDark md:h-auto md:w-[400px]">
                     <p className="py-8 text-center text-3xl font-bold leading-8 md:py-4">
-                        {isNew ? "Create Note" : "Update Note"}
+                        {isNew ? title.create : title.update}
                     </p>
                     <form
                         className="flex flex-col gap-4"
                         onSubmit={handleSubmit}
                     >
                         <div className="input-group">
-                            <label htmlFor="title">Title</label>
+                            <label htmlFor="title">{label.title}</label>
                             <input
                                 type="text"
                                 name="title"
@@ -89,7 +99,9 @@ function NoteEditor({ isNewPage = false }) {
                             />
                         </div>
                         <div className="input-group">
-                            <label htmlFor="description">Description</label>
+                            <label htmlFor="description">
+                                {label.description}
+                            </label>
                             <textarea
                                 name="description"
                                 placeholder=""
@@ -100,7 +112,7 @@ function NoteEditor({ isNewPage = false }) {
                             ></textarea>
                         </div>
                         <button className="submit-btn w-full" type="submit">
-                            {isNew ? "Create" : "Update"}
+                            {isNew ? btnLabel.create : btnLabel.update}
                         </button>
                     </form>
                 </div>

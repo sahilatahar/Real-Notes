@@ -1,29 +1,32 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 const useScrollPosition = () => {
-	const [showScrollToTop, setShowScrollToTop] = useState(false)
+    const [showScrollToTop, setShowScrollToTop] = useState(false);
 
-	useEffect(() => {
-		const handleScroll = () => {
-			const currentPosition = window.scrollY
-			const threshold = 800
+    useEffect(() => {
+        const home = document.getElementById("home");
 
-			if (currentPosition > threshold) {
-				setShowScrollToTop(true)
-			} else {
-				setShowScrollToTop(false)
-			}
-		}
+        const handleScroll = () => {
+            console.log("scrolling");
+            const currentPosition = home.scrollTop;
+            const threshold = 1200;
 
-		window.addEventListener("scroll", handleScroll)
+            if (currentPosition > threshold) {
+                setShowScrollToTop(true);
+            } else {
+                setShowScrollToTop(false);
+            }
+        };
 
-		// Clean up event listener
-		return () => {
-			window.removeEventListener("scroll", handleScroll)
-		}
-	}, [])
+        home.addEventListener("scroll", handleScroll);
 
-	return { showScrollToTop }
-}
+        // Clean up event listener
+        return () => {
+            home.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
-export default useScrollPosition
+    return { showScrollToTop };
+};
+
+export default useScrollPosition;
