@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import tempProfileImage from "../assets/profile.png";
+import tempProfileImage from "../assets/profile.jpg";
 import AuthContext from "../context/AuthContext";
 import UserAuth from "../firebase/UserAuth";
 import { dismissToast, showToast } from "../utils/toast";

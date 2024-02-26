@@ -6,21 +6,31 @@
             "profile": "الملف الشخصي",
             "theme": "السمة",
             "changeLang": "تغيير اللغة",
-            "chooseLang": "اختر اللغة",
+            "chooseLang": "اختيار اللغة",
             "logout": "تسجيل الخروج"
         }
     },
     "Home": {
         "tabs": {
             "all": "الكل",
-            "starred": "مُشار إليه"
+            "starred": "معلمة"
         },
         "title": "ملاحظاتك"
+    },
+    "NoteDetails": {
+        "btnLabel": {
+            "edit": "تحرير"
+        },
+        "label": {
+            "lastModified": "آخر تعديل: "
+        }
     },
     "NoteEditor": {
         "btnLabel": {
             "create": "إنشاء",
-            "update": "تحديث"
+            "update": "تحديث",
+            "cancel": "إلغاء",
+            "delete": "حذف"
         },
         "label": {
             "description": "الوصف",
@@ -28,31 +38,45 @@
         },
         "title": {
             "create": "إنشاء مذكرة",
-            "update": "تحديث المذكرة"
+            "edit": "تحرير المذكرة"
         }
     },
     "Profile": {
         "btnLabel": {
             "changePass": "تغيير كلمة المرور",
             "deleteAcc": "حذف الحساب",
-            "resetEmail": "إرسال بريد إلكتروني لإعادة التعيين",
+            "resetEmail": "إرسال بريد إلكتروني إعادة تعيين",
             "updateName": "تحديث الاسم",
             "changeImg": "تغيير الصورة"
         },
         "description": {
-            "delete": "حذف حساب Real-Notes الخاص بك غير قابل للاسترداد وسيقوم بمحو جميع ملاحظاتك وبياناتك بشكل دائم. شكرًا لاستخدام Real-Notes."
+            "delete": "حذف حسابك في ملاحظات حقيقية لا يمكن التراجع عنه وسيقوم بمسح جميع ملاحظاتك وبياناتك بشكل دائم. شكرًا لاستخدام ملاحظات حقيقية."
         },
         "label": {
             "confirmPass": "تأكيد كلمة المرور",
             "fName": "الاسم الأول",
             "lName": "الاسم الأخير",
-            "newPass": "كلمة مرور جديدة"
+            "newPass": "كلمة المرور الجديدة"
         },
         "title": {
             "changePass": "تغيير كلمة المرور",
             "dangerZone": "منطقة الخطر",
             "personalInfo": "المعلومات الشخصية",
             "resetPass": "إعادة تعيين كلمة المرور"
+        }
+    },
+    "Notes": {
+        "label": {
+            "noStarredNotes": "لم تقم بتحديد أي ملاحظات بعد",
+            "noNotes": "لم تقم بتحديد أي ملاحظات",
+            "urgent": "عاجل",
+            "important": "مهم",
+            "work": "عمل",
+            "personal": "شخصي",
+            "meeting": "اجتماع",
+            "deadline": "موعد نهائي",
+            "to-do": "للقيام به",
+            "follow-up": "متابعة"
         }
     }
 }

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useSelector } from "react-redux";
-import { selectNotesAndStarredNotes } from "../app/redux/notesSlice";
+import { selectNotesAndStarredNotes } from "../app/reducers/notesSlice";
 import TabContext from "../context/TabContext";
 import { useTranslation } from "react-i18next";
 

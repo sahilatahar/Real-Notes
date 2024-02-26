@@ -10,12 +10,10 @@ function LanguageSelectorMobile({ setCurrentLang }) {
     const { btnLabel } = t("Sidebar");
 
     const showModal = () => {
-        console.log("show modal");
         modalRef.current.classList.remove("hidden");
         modalRef.current.classList.add("flex");
     };
     const hideModal = () => {
-        console.log("hide modal");
         modalRef.current.classList.remove("flex");
         modalRef.current.classList.add("hidden");
     };

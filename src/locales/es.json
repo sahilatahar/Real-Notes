@@ -5,22 +5,32 @@
             "home": "Inicio",
             "profile": "Perfil",
             "theme": "Tema",
-            "changeLang": "Cambiar idioma",
-            "chooseLang": "Seleccionar idioma",
+            "changeLang": "Cambiar Idioma",
+            "chooseLang": "Elegir Idioma",
             "logout": "Cerrar sesión"
         }
     },
     "Home": {
         "tabs": {
             "all": "Todos",
-            "starred": "Destacados"
+            "starred": "Destacado"
         },
         "title": "Tus Notas"
+    },
+    "NoteDetails": {
+        "btnLabel": {
+            "edit": "Editar"
+        },
+        "label": {
+            "lastModified": "Última modificación: "
+        }
     },
     "NoteEditor": {
         "btnLabel": {
             "create": "Crear",
-            "update": "Actualizar"
+            "update": "Actualizar",
+            "cancel": "Cancelar",
+            "delete": "Eliminar"
         },
         "label": {
             "description": "Descripción",
@@ -28,19 +38,19 @@
         },
         "title": {
             "create": "Crear Nota",
-            "update": "Actualizar Nota"
+            "edit": "Editar Nota"
         }
     },
     "Profile": {
         "btnLabel": {
             "changePass": "Cambiar Contraseña",
             "deleteAcc": "Eliminar Cuenta",
-            "resetEmail": "Enviar correo electrónico de restablecimiento",
+            "resetEmail": "Enviar correo electrónico de reinicio",
             "updateName": "Actualizar Nombre",
             "changeImg": "Cambiar Imagen"
         },
         "description": {
-            "delete": "La eliminación de tu cuenta de Real-Notes es irreversible y eliminará permanentemente todas tus notas y datos. Gracias por usar Real-Notes."
+            "delete": "Eliminar tu cuenta de Real-Notes es irreversible y borrará permanentemente todas tus notas y datos. Gracias por usar Real-Notes."
         },
         "label": {
             "confirmPass": "Confirmar Contraseña",
@@ -50,9 +60,23 @@
         },
         "title": {
             "changePass": "Cambiar Contraseña",
-            "dangerZone": "Zona Peligrosa",
+            "dangerZone": "Zona de Peligro",
             "personalInfo": "Información Personal",
             "resetPass": "Restablecer Contraseña"
+        }
+    },
+    "Notes": {
+        "label": {
+            "noStarredNotes": "Todavía no has destacado ninguna nota",
+            "noNotes": "Todavía no tienes ninguna nota",
+            "urgent": "Urgente",
+            "important": "Importante",
+            "work": "Trabajo",
+            "personal": "Personal",
+            "meeting": "Reunión",
+            "deadline": "Fecha límite",
+            "to-do": "Por hacer",
+            "follow-up": "Seguimiento"
         }
     }
 }

@@ -1,6 +1,6 @@
 import FirebaseNote from "../../firebase/FirebaseNote";
 import { dismissToast, showToast } from "../../utils/toast";
-import { addNote, deleteNote, updateNote, updateNoteStar } from "./notesSlice";
+import { addNote, deleteNote, updateNote, updateNoteStar } from "../reducers/notesSlice";
 
 export const addNoteAction = async (note, dispatch) => {
     showToast("loading", "Adding note...");
@@ -20,6 +20,7 @@ export const addNoteAction = async (note, dispatch) => {
     return false;
 };
 export const updateNoteAction = async (note, dispatch) => {
+    showToast("loading", "Updating note...");
     const { id } = note;
     try {
         await FirebaseNote.updateNote(id, note);

@@ -8,7 +8,7 @@ import { dismissToast, showToast } from "../../utils/toast";
 
 const initialState = {
     notes: [],
-    status: "idle",
+    status: "loading",
 };
 
 const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {

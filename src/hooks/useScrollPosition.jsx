@@ -7,7 +7,6 @@ const useScrollPosition = () => {
         const home = document.getElementById("home");
 
         const handleScroll = () => {
-            console.log("scrolling");
             const currentPosition = home.scrollTop;
             const threshold = 1200;
 

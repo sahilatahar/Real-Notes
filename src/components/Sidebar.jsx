@@ -87,7 +87,7 @@ const Sidebar = () => {
             {isMobile && (
                 <button
                     className={sidebarItemClassName}
-                    onClick={() => navigate("/new")}
+                    onClick={() => navigate("/add")}
                 >
                     <Plus size="30" />
                 </button>

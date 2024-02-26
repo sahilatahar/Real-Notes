@@ -2,14 +2,21 @@ import { Navigate } from "react-router-dom";
 import UserAuth from "../firebase/UserAuth";
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
-import Loading from "../components/Loading";
+import { LoadingFull } from "../components/Loading";
 import PropTypes from "prop-types";
 import Sidebar from "../components/Sidebar";
 import { onAuthStateChanged } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    fetchNotes,
+    selectNotesAndStarredNotes,
+} from "../app/reducers/notesSlice";
 
 function ProtectedRoute({ component: Component, ...rest }) {
     const { authState, setAuthState } = useContext(AuthContext);
     const [loading, setLoading] = useState(true);
+    const { notes } = useSelector(selectNotesAndStarredNotes);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (!authState.isAuthenticated) {
@@ -30,8 +37,14 @@ function ProtectedRoute({ component: Component, ...rest }) {
         }
     }, [authState.isAuthenticated, setAuthState]);
 
+    useEffect(() => {
+        if (authState.isAuthenticated && !loading && !notes.length) {
+            dispatch(fetchNotes());
+        }
+    }, [dispatch, notes.length, authState.isAuthenticated, loading]);
+
     if (loading) {
-        return <Loading />;
+        return <LoadingFull />;
     }
 
     return authState.isAuthenticated ? (

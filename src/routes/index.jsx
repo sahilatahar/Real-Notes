@@ -6,6 +6,7 @@ import Profile from "../pages/Profile";
 import Register from "../pages/Register";
 import ProtectedRoute from "./ProtectedRoute";
 import AuthRedirect from "./AuthRedirect";
+import NoteDetails from "../pages/NoteDetails";
 
 const routes = createBrowserRouter([
     {
@@ -21,8 +22,12 @@ const routes = createBrowserRouter([
         element: <AuthRedirect component={Register} />,
     },
     {
-        path: "/new",
+        path: "/add",
         element: <ProtectedRoute component={NoteEditor} isNew={true} />,
+    },
+    {
+        path: "/notes/:id",
+        element: <ProtectedRoute component={NoteDetails} />,
     },
     {
         path: "/edit/:id",

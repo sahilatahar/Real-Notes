@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import profileImgTemp from "../assets/profile.png";
+import profileImgTemp from "../assets/profile.jpg";
 import UserAuth from "../firebase/UserAuth";
 import { dismissToast, showToast } from "../utils/toast";
 
@@ -102,7 +102,7 @@ function Register() {
     return (
         <div className="flex max-h-screen justify-center overflow-auto p-4 md:p-8">
             <div className="border-darkBorder h-fit rounded-xl border bg-cardLight px-4 py-8 text-textLight shadow-lg dark:bg-cardDark dark:text-textDark sm:w-[400px] md:p-8">
-                <p className="pb-8 text-center text-3xl font-bold leading-8">
+                <p className="pb-6 text-center text-3xl font-bold leading-8">
                     Signup
                 </p>
                 <form className="flex flex-col gap-4" onSubmit={handleSubmit}>

@@ -17,10 +17,20 @@
         },
         "title": "Your Notes"
     },
+    "NoteDetails": {
+        "btnLabel": {
+            "edit": "Edit"
+        },
+        "label": {
+            "lastModified": "Last modified: "
+        }
+    },
     "NoteEditor": {
         "btnLabel": {
             "create": "Create",
-            "update": "Update"
+            "update": "Update",
+            "cancel": "Cancel",
+            "delete": "Delete"
         },
         "label": {
             "description": "Description",
@@ -28,7 +38,7 @@
         },
         "title": {
             "create": "Create Note",
-            "update": "Update Note"
+            "edit": "Edit Note"
         }
     },
     "Profile": {
@@ -53,6 +63,20 @@
             "dangerZone": "Danger Zone",
             "personalInfo": "Personal Info",
             "resetPass": "Reset Password"
+        }
+    },
+    "Notes": {
+        "label": {
+            "noStarredNotes": "You haven't starred any notes yet",
+            "noNotes": "You haven't any notes",
+            "urgent": "Urgent",
+            "important": "Important",
+            "work": "Work",
+            "personal": "Personal",
+            "meeting": "Meeting",
+            "deadline": "Deadline",
+            "to-do": "To-Do",
+            "follow-up": "Follow-Up"
         }
     }
 }

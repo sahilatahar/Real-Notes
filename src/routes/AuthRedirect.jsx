@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import Loading from "../components/Loading";
+import { LoadingFull } from "../components/Loading";
 import AuthContext from "../context/AuthContext";
 import UserAuth from "../firebase/UserAuth";
 import PropTypes from "prop-types";
@@ -29,7 +29,7 @@ function AuthRedirect({ component: Component, ...rest }) {
         }
     }, [authState.isAuthenticated, setAuthState, navigate]);
 
-    return loading ? <Loading /> : <Component {...rest} />;
+    return loading ? <LoadingFull /> : <Component {...rest} />;
 }
 
 AuthRedirect.propTypes = {

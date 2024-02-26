@@ -14,7 +14,7 @@ import {
     uploadBytes,
     uploadBytesResumable,
 } from "firebase/storage";
-import profileImgTemp from "../assets/profile.png";
+import profileImgTemp from "../assets/profile.jpg";
 import { dismissToast, showToast } from "../utils/toast";
 import { app, storage } from "./";
 import FirebaseNote from "./FirebaseNote";

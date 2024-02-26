@@ -13,7 +13,7 @@ function FloatingActionButton() {
         if (showScrollToTop) {
             home.scrollTo(0, 0);
         } else {
-            navigate("/new");
+            navigate("/add");
         }
     };
 
