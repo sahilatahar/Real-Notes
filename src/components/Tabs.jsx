@@ -20,7 +20,7 @@ function Tabs() {
     };
 
     const getClassNames = (isSTab = false) =>
-        `cursor-pointer p-2 font-bold border-b border-b-2 ${
+        `cursor-pointer p-2 font-bold border-b border-b-2 space-x-2 ${
             isSTab === isStarredTab
                 ? "border-black dark:border-white"
                 : "border-bgLight dark:border-bgDark"
@@ -30,7 +30,7 @@ function Tabs() {
         <nav className="flex select-none gap-4 text-base md:text-lg">
             <button className={getClassNames()} onClick={handleTabs}>
                 <span>{all}</span>
-                <span> ({notes.length})</span>
+                <span style={{ unicodeBidi: "embed" }}>({notes.length})</span>
             </button>
             <button
                 className={getClassNames(true)}
@@ -38,7 +38,9 @@ function Tabs() {
                 data-name="starred"
             >
                 <span data-name="starred">{starred}</span>
-                <span> ({starredNotes.length})</span>
+                <span style={{ unicodeBidi: "embed" }}>
+                    ({starredNotes.length}){" "}
+                </span>
             </button>
         </nav>
     );
