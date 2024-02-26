@@ -78,5 +78,9 @@
             "to-do": "Por hacer",
             "follow-up": "Seguimiento"
         }
+    },
+    "NotFound": {
+        "title": "404 - Nota no encontrada",
+        "description": "Lo sentimos, la nota solicitada no existe."
     }
 }

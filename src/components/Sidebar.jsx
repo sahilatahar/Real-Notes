@@ -11,12 +11,12 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import UserAuth from "../firebase/UserAuth";
-import useTheme from "../hooks/useTheme";
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./SidebarComponents/LanguageSelector";
 import LanguageSelectorMobile from "./SidebarComponents/LanguageSelectorMobile";
 import useLanguages from "../hooks/useLanguages";
+import ThemeContext from "../context/ThemeContext";
 
 const Sidebar = () => {
     const navigate = useNavigate();
@@ -24,7 +24,7 @@ const Sidebar = () => {
     const { isMobile } = useWindowDimensions();
     const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
     const { setCurrentLang } = useLanguages();
-    const { toggleTheme, theme } = useTheme();
+    const { toggleTheme, theme } = useContext(ThemeContext);
     const { t } = useTranslation();
     const { title, btnLabel } = t("Sidebar");
 

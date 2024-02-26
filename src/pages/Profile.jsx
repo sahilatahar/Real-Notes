@@ -191,7 +191,7 @@ function Profile() {
                             />
                         </div>
                     </div>
-                    <button className="submit-btn" onClick={updateName}>
+                    <button className="button self-start" onClick={updateName}>
                         {btnLabel.updateName}
                     </button>
                 </section>
@@ -223,13 +223,19 @@ function Profile() {
                             />
                         </div>
                     </div>
-                    <button className="submit-btn" onClick={changePassword}>
+                    <button
+                        className="button self-start"
+                        onClick={changePassword}
+                    >
                         {btnLabel.changePass}
                     </button>
                 </section>
                 <section className="flex flex-col gap-4 rounded-xl bg-cardLight p-6 shadow-lg dark:bg-cardDark ">
                     <h2 className="section-heading">{title.resetPass}</h2>
-                    <button className="submit-btn" onClick={sendResetEmail}>
+                    <button
+                        className="button self-start"
+                        onClick={sendResetEmail}
+                    >
                         {btnLabel.resetEmail}
                     </button>
                 </section>
@@ -239,7 +245,7 @@ function Profile() {
                     </h2>
                     <p>{description.delete}</p>
                     <button
-                        className="submit-btn bg-danger text-white"
+                        className="button self-start bg-danger text-white"
                         onClick={deleteUserAccount}
                     >
                         {btnLabel.deleteAcc}

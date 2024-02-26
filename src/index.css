@@ -7,8 +7,8 @@
         @apply w-full rounded-md border border-black bg-lightHover px-4 py-3 text-black focus:outline-none dark:border-white dark:bg-darkHover dark:text-white;
     }
 
-    .submit-btn {
-        @apply block cursor-pointer self-start rounded-md bg-primary px-4 py-3 text-center text-base font-semibold text-white;
+    .button {
+        @apply block cursor-pointer rounded-md bg-primary px-4 py-3 text-center text-base font-semibold text-white;
     }
 
     .section-heading {

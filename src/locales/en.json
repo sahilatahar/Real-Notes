@@ -78,5 +78,9 @@
             "to-do": "To-Do",
             "follow-up": "Follow-Up"
         }
+    },
+    "NotFound": {
+        "title": "404 - Note Not Found",
+        "description": "Sorry, the requested note does not exist."
     }
 }

@@ -15,6 +15,7 @@ import LabelComponent from "../components/Labels/LabelComponent";
 import { Star, Trash } from "@phosphor-icons/react";
 import noteEmptyObj from "../utils/noteEmptyObj";
 import { LoadingFull } from "../components/Loading";
+import NotFound from "../components/NotFound";
 
 function NoteEditor({ isNew = false }) {
     // State variables
@@ -94,10 +95,12 @@ function NoteEditor({ isNew = false }) {
 
     if (status === "loading") return <LoadingFull />;
 
+    if (!note && !isNew) return <NotFound />;
+
     return (
         <>
-            <div className="h-screen max-h-screen min-h-screen flex-grow  flex-col overflow-y-scroll p-2 pb-[7rem] md:py-4">
-                <div className="mx-auto w-full space-y-4 rounded-lg bg-cardLight px-4 py-4 dark:bg-cardDark md:w-5/6">
+            <div className="h-screen max-h-screen min-h-screen flex-grow  flex-col overflow-y-scroll bg-cardLight pb-[7rem] dark:bg-cardDark md:bg-bgLight md:py-4 md:dark:bg-bgDark">
+                <div className="mx-auto w-full space-y-4 rounded-lg px-4 md:w-5/6 md:py-4">
                     <div className="flex items-center justify-between">
                         <h2 className="relative flex-grow py-8 text-3xl font-bold leading-8 md:py-4">
                             {isNew ? title.create : title.edit}
@@ -158,14 +161,14 @@ function NoteEditor({ isNew = false }) {
                         <div className="flex gap-2 md:gap-6">
                             {!isNew && (
                                 <button
-                                    className="submit-btn flex-grow border border-textLight bg-transparent text-textLight dark:border-textDark dark:bg-bgDark dark:text-textDark"
+                                    className="button flex-grow border border-textLight bg-transparent text-textLight dark:border-textDark dark:text-textDark"
                                     onClick={() => navigate(`/notes/${id}`)}
                                 >
                                     {btnLabel.cancel}
                                 </button>
                             )}
                             <button
-                                className="submit-btn flex-grow border border-primary"
+                                className="button flex-grow border border-primary"
                                 type="submit"
                                 disabled={isBtnClicked}
                             >
