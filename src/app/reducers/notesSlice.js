@@ -87,6 +87,7 @@ export const selectNotesAndStarredNotes = createSelector(
         };
     },
 );
+
 export const { addNote, updateNote, updateNoteStar, deleteNote } =
     notesSlice.actions;
 export { fetchNotes };

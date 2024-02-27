@@ -15,7 +15,10 @@
             "all": "All",
             "starred": "Starred"
         },
-        "title": "Your Notes"
+        "title": "Your Notes",
+        "label": {
+            "search": "Search notes"
+        }
     },
     "NoteDetails": {
         "btnLabel": {
@@ -69,6 +72,8 @@
         "label": {
             "noStarredNotes": "You haven't starred any notes yet",
             "noNotes": "You haven't any notes",
+            "noSearchNotes": "No notes found matching your search query. Please try a different search term.",
+            "noSearchStarredNotes": "No starred notes found matching your search query. Consider starring some notes for easy access.",
             "urgent": "Urgent",
             "important": "Important",
             "work": "Work",

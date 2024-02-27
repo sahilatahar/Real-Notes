@@ -13,9 +13,12 @@
     "Home": {
         "tabs": {
             "all": "Todos",
-            "starred": "Destacado"
+            "starred": "Destacadas"
         },
-        "title": "Tus Notas"
+        "title": "Tus Notas",
+        "label": {
+            "search": "Buscar notas"
+        }
     },
     "NoteDetails": {
         "btnLabel": {
@@ -45,12 +48,12 @@
         "btnLabel": {
             "changePass": "Cambiar Contraseña",
             "deleteAcc": "Eliminar Cuenta",
-            "resetEmail": "Enviar correo electrónico de reinicio",
+            "resetEmail": "Enviar correo electrónico de restablecimiento",
             "updateName": "Actualizar Nombre",
             "changeImg": "Cambiar Imagen"
         },
         "description": {
-            "delete": "Eliminar tu cuenta de Real-Notes es irreversible y borrará permanentemente todas tus notas y datos. Gracias por usar Real-Notes."
+            "delete": "Eliminar tu cuenta de Real Notes es irreversible y borrará permanentemente todas tus notas y datos. Gracias por usar Real Notes."
         },
         "label": {
             "confirmPass": "Confirmar Contraseña",
@@ -67,20 +70,22 @@
     },
     "Notes": {
         "label": {
-            "noStarredNotes": "Todavía no has destacado ninguna nota",
-            "noNotes": "Todavía no tienes ninguna nota",
+            "noStarredNotes": "Aún no has destacado ninguna nota",
+            "noNotes": "No tienes ninguna nota",
+            "noSearchNotes": "No se encontraron notas que coincidan con tu búsqueda. Por favor, prueba con un término de búsqueda diferente.",
+            "noSearchStarredNotes": "No se encontraron notas destacadas que coincidan con tu búsqueda. Considera destacar algunas notas para acceder fácilmente a ellas.",
             "urgent": "Urgente",
             "important": "Importante",
             "work": "Trabajo",
             "personal": "Personal",
             "meeting": "Reunión",
-            "deadline": "Fecha límite",
-            "to-do": "Por hacer",
+            "deadline": "Plazo",
+            "to-do": "Por Hacer",
             "follow-up": "Seguimiento"
         }
     },
     "NotFound": {
-        "title": "404 - Nota no encontrada",
-        "description": "Lo sentimos, la nota solicitada no existe."
+        "title": "404 - Nota No Encontrada",
+        "description": "Lo siento, la nota solicitada no existe."
     }
 }

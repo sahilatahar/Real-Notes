@@ -1,10 +1,21 @@
 import PropTypes from "prop-types";
 import LABELS from "../../utils/labels";
 import { useTranslation } from "react-i18next";
+import HighlightedText from "../HighlightedText";
+import { useSearch } from "../../context/SearchContext";
 
-function CardFooter({ note }) {
+function Labels({ note }) {
+    const { setSearchQuery } = useSearch();
     const { t } = useTranslation();
     const { label: labelTextObj } = t("Notes");
+    const isHomePath = window.location.pathname === "/";
+
+    const handleLabelClick = (e, label) => {
+        e.stopPropagation();
+        if (isHomePath) {
+            setSearchQuery(`${label}`);
+        }
+    };
 
     return (
         <div className="space-y-4">
@@ -22,8 +33,13 @@ function CardFooter({ note }) {
                                 backgroundColor: color,
                                 color: "#fff",
                             }}
+                            onClick={(e) => handleLabelClick(e, label)}
                         >
-                            {labelTextObj[label.toLowerCase()] || label}
+                            <HighlightedText
+                                text={
+                                    labelTextObj[label.toLowerCase()] || label
+                                }
+                            />
                         </span>
                     );
                 })}
@@ -32,8 +48,8 @@ function CardFooter({ note }) {
     );
 }
 
-CardFooter.propTypes = {
+Labels.propTypes = {
     note: PropTypes.object.isRequired,
 };
 
-export default CardFooter;
+export default Labels;

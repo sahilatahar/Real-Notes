@@ -5,6 +5,7 @@ import routes from "./routes";
 import { TabProvider } from "./context/TabContext";
 import { ThemeProvider } from "./context/ThemeContext";
 import useNetworkStatus from "./hooks/useNetworkStatus";
+import { SearchProvider } from "./context/SearchContext";
 
 function App() {
     useNetworkStatus();
@@ -12,7 +13,9 @@ function App() {
         <ThemeProvider>
             <AuthProvider>
                 <TabProvider>
-                    <RouterProvider router={routes} />
+                    <SearchProvider>
+                        <RouterProvider router={routes} />
+                    </SearchProvider>
                     <ToastContainer
                         transition={Slide}
                         position="top-right"
