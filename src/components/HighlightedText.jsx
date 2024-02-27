@@ -3,8 +3,9 @@ import { useSearch } from "../context/SearchContext";
 
 const HighlightedText = ({ text }) => {
     const { searchQuery } = useSearch();
+    const isHomePath = window.location.pathname === "/";
 
-    if (!searchQuery) return text;
+    if (!searchQuery || !isHomePath) return text;
 
     const regex = new RegExp(`(${searchQuery})`, "gi");
 

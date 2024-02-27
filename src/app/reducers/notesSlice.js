@@ -80,6 +80,7 @@ const selectNotes = (state) => state.notes.notes;
 export const selectNotesAndStarredNotes = createSelector(
     [selectNotes],
     (notes) => {
+        notes = notes.filter((note) => !note.deleted);
         const starredNotes = notes.filter((note) => note.starred);
         return {
             notes,
@@ -87,6 +88,13 @@ export const selectNotesAndStarredNotes = createSelector(
         };
     },
 );
+
+export const selectDeletedNotes = createSelector([selectNotes], (notes) => {
+    const deletedNotes = notes.filter((note) => note.deleted);
+    return {
+        deletedNotes,
+    };
+});
 
 export const { addNote, updateNote, updateNoteStar, deleteNote } =
     notesSlice.actions;

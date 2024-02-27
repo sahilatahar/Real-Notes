@@ -7,7 +7,8 @@
             "theme": "Tema",
             "changeLang": "Cambiar Idioma",
             "chooseLang": "Elegir Idioma",
-            "logout": "Cerrar sesión"
+            "deletedNotes": "Notas Eliminadas",
+            "logout": "Cerrar Sesión"
         }
     },
     "Home": {
@@ -22,7 +23,9 @@
     },
     "NoteDetails": {
         "btnLabel": {
-            "edit": "Editar"
+            "edit": "Editar",
+            "restore": "Restaurar",
+            "deletePerm": "Eliminar Permanentemente"
         },
         "label": {
             "lastModified": "Última modificación: "
@@ -48,12 +51,12 @@
         "btnLabel": {
             "changePass": "Cambiar Contraseña",
             "deleteAcc": "Eliminar Cuenta",
-            "resetEmail": "Enviar correo electrónico de restablecimiento",
+            "resetEmail": "Enviar correo de restablecimiento",
             "updateName": "Actualizar Nombre",
             "changeImg": "Cambiar Imagen"
         },
         "description": {
-            "delete": "Eliminar tu cuenta de Real Notes es irreversible y borrará permanentemente todas tus notas y datos. Gracias por usar Real Notes."
+            "delete": "Eliminar tu cuenta de Real-Notes es irreversible y borrará permanentemente todas tus notas y datos. Gracias por usar Real-Notes."
         },
         "label": {
             "confirmPass": "Confirmar Contraseña",
@@ -70,16 +73,17 @@
     },
     "Notes": {
         "label": {
-            "noStarredNotes": "Aún no has destacado ninguna nota",
-            "noNotes": "No tienes ninguna nota",
+            "noStarredNotes": "Todavía no has destacado ninguna nota",
+            "noNotes": "Aún no tienes ninguna nota",
             "noSearchNotes": "No se encontraron notas que coincidan con tu búsqueda. Por favor, prueba con un término de búsqueda diferente.",
             "noSearchStarredNotes": "No se encontraron notas destacadas que coincidan con tu búsqueda. Considera destacar algunas notas para acceder fácilmente a ellas.",
+            "noDeletedNotes": "No se encontraron notas eliminadas.",
             "urgent": "Urgente",
             "important": "Importante",
             "work": "Trabajo",
             "personal": "Personal",
             "meeting": "Reunión",
-            "deadline": "Plazo",
+            "deadline": "Fecha límite",
             "to-do": "Por Hacer",
             "follow-up": "Seguimiento"
         }
@@ -87,5 +91,8 @@
     "NotFound": {
         "title": "404 - Nota No Encontrada",
         "description": "Lo siento, la nota solicitada no existe."
+    },
+    "DeletedNotes": {
+        "title": "Notas Eliminadas"
     }
 }

@@ -1,11 +1,15 @@
 import { useTranslation } from "react-i18next";
 import Labels from "../components/Labels/Labels";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectNoteById } from "../app/reducers/notesSlice";
 import { formatTimestamp } from "../utils/dateUtils";
 import { LoadingFull } from "../components/Loading";
 import NotFound from "../components/NotFound";
+import {
+    permanentlyDeleteNoteAction,
+    restoreNoteAction,
+} from "../app/actions/notesActions";
 
 function NoteDetails() {
     const { id } = useParams();
@@ -14,14 +18,24 @@ function NoteDetails() {
     const { t } = useTranslation();
     const { btnLabel, label } = t("NoteDetails");
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     if (status === "loading") return <LoadingFull />;
     if (!note) return <NotFound />;
 
-    const { title, description, lastModified } = note;
+    const { title, description, lastModified, deleted } = note;
 
-    const handleBtnClick = () => {
+    const handleBtnClick = async () => {
+        if (deleted) {
+            await restoreNoteAction(note, dispatch);
+            return;
+        }
         navigate(`/edit/${id}`);
+    };
+
+    const handlePermanentlyDelete = async () => {
+        await permanentlyDeleteNoteAction(note, dispatch);
+        navigate("/deleted");
     };
 
     return (
@@ -37,8 +51,16 @@ function NoteDetails() {
                 </p>
                 <Labels note={note} />
                 <button className="button w-full" onClick={handleBtnClick}>
-                    {btnLabel.edit}
+                    {deleted ? btnLabel.restore : btnLabel.edit}
                 </button>
+                {deleted && (
+                    <button
+                        className="button w-full bg-danger"
+                        onClick={handlePermanentlyDelete}
+                    >
+                        {btnLabel.deletePerm}
+                    </button>
+                )}
             </div>
         </div>
     );

@@ -36,7 +36,7 @@ function LanguageSelectorMobile({ setCurrentLang }) {
 
     return (
         <>
-            <button onClick={handleButtonClick}>
+            <button onClick={handleButtonClick} className="md:hidden">
                 <Globe size="30" />
             </button>
             <div

@@ -19,7 +19,7 @@ function FloatingActionButton() {
 
     return (
         <button
-            className="rounded-3 fixed bottom-4 right-8 flex h-14 w-14 cursor-pointer items-center justify-center rounded-lg bg-primary p-3 text-white"
+            className="rounded-3 fixed bottom-4 right-8 hidden h-14 w-14 cursor-pointer items-center justify-center rounded-lg bg-primary p-3 text-white md:flex"
             onClick={handleCreateBtn}
         >
             {showScrollToTop ? (

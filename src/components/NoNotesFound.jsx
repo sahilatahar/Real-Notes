@@ -8,10 +8,20 @@ function NoNotesFound() {
     const { searchQuery } = useSearch();
     const { isStarredTab } = useContext(TabContext);
     const { t } = useTranslation();
-    const { noNotes, noStarredNotes, noSearchNotes, noSearchStarredNotes } =
-        t("Notes").label;
+    const {
+        noNotes,
+        noStarredNotes,
+        noSearchNotes,
+        noSearchStarredNotes,
+        noDeletedNotes,
+    } = t("Notes").label;
+    const isDeletedPage = window.location.pathname === "/deleted";
 
     const getLabel = () => {
+        if (isDeletedPage) {
+            return noDeletedNotes;
+        }
+
         if (searchQuery.length > 0) {
             return !isStarredTab ? noSearchNotes : noSearchStarredNotes;
         }

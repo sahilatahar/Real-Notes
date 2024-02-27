@@ -6,7 +6,11 @@ import {
     deleteNoteAction,
     updateNoteAction,
 } from "../app/actions/notesActions";
-import { selectNoteById } from "../app/reducers/notesSlice";
+import {
+    selectDeletedNotes,
+    selectNoteById,
+    selectNotesAndStarredNotes,
+} from "../app/reducers/notesSlice";
 import { getCurrentDate } from "../utils/dateUtils";
 import { dismissToast, showToast } from "../utils/toast";
 import { useTranslation } from "react-i18next";
@@ -29,6 +33,7 @@ function NoteEditor({ isNew = false }) {
     const [isBtnClicked, setIsBtnClicked] = useState(false);
     const { t } = useTranslation();
     const { title, label, btnLabel } = t("NoteEditor");
+    const { deletedNotes } = useSelector(selectDeletedNotes);
 
     // Handling input changes
     const handleChange = (e) => {
@@ -48,9 +53,11 @@ function NoteEditor({ isNew = false }) {
         return true;
     };
 
-    const handleDeleteNote = async (e, id) => {
+    const handleDeleteNote = async (e, note) => {
         e.stopPropagation();
-        await deleteNoteAction(id, dispatch);
+        const isConfirmed = window.confirm("Are you sure you want to delete?");
+        if (!isConfirmed) return;
+        await deleteNoteAction({ note, dispatch, deletedNotes });
         navigate("/");
     };
 
@@ -118,7 +125,7 @@ function NoteEditor({ isNew = false }) {
                         </button>
                         {!isNew && (
                             <button
-                                onClick={(e) => handleDeleteNote(e, note.id)}
+                                onClick={(e) => handleDeleteNote(e, note)}
                                 title="Delete Note"
                                 className="aspect-square cursor-pointer rounded-full text-danger"
                             >

@@ -7,6 +7,7 @@
             "theme": "Theme",
             "changeLang": "Change Language",
             "chooseLang": "Choose Language",
+            "deletedNotes": "Deleted Notes",
             "logout": "Log out"
         }
     },
@@ -22,7 +23,9 @@
     },
     "NoteDetails": {
         "btnLabel": {
-            "edit": "Edit"
+            "edit": "Edit",
+            "restore": "Restore",
+            "deletePerm": "Delete Permanently"
         },
         "label": {
             "lastModified": "Last modified: "
@@ -74,6 +77,7 @@
             "noNotes": "You haven't any notes",
             "noSearchNotes": "No notes found matching your search query. Please try a different search term.",
             "noSearchStarredNotes": "No starred notes found matching your search query. Consider starring some notes for easy access.",
+            "noDeletedNotes": "No deleted notes found.",
             "urgent": "Urgent",
             "important": "Important",
             "work": "Work",
@@ -87,5 +91,8 @@
     "NotFound": {
         "title": "404 - Note Not Found",
         "description": "Sorry, the requested note does not exist."
+    },
+    "DeletedNotes": {
+        "title": "Deleted Notes"
     }
 }
