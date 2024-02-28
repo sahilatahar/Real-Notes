@@ -1,17 +1,16 @@
-import { useContext } from "react";
 import { useSelector } from "react-redux";
 import { selectNotesAndStarredNotes } from "../app/reducers/notesSlice";
-import TabContext from "../context/TabContext";
 import { useTranslation } from "react-i18next";
 import { useSearch } from "../context/SearchContext";
 import getSearchedNotes from "../helpers/getSearchedNotes";
+import { useTabs } from "../context/TabContext";
 
 function Navbar() {
     const { searchQuery } = useSearch();
     const { notes, starredNotes } = useSelector(selectNotesAndStarredNotes);
     const { filteredNotes, filteredStarredNotes } =
         getSearchedNotes(notes)(searchQuery);
-    const { isStarredTab, setIsStarredTab } = useContext(TabContext);
+    const { isStarredTab, setIsStarredTab } = useTabs();
     const { t } = useTranslation();
     const { all, starred } = t("Home.tabs");
     const { search } = t("Home").label;
@@ -62,7 +61,7 @@ function Navbar() {
                 onChange={handleOnChange}
                 value={searchQuery}
             />
-            <div className="space-x-2 md:space-x-4">
+            <div className="min-w-fit space-x-2 md:space-x-4">
                 <button className={getClassNames()} onClick={handleTabs}>
                     <span>{all}</span>
                     <span style={{ unicodeBidi: "embed" }}>({allCount})</span>

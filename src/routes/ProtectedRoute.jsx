@@ -1,53 +1,68 @@
 import { Navigate } from "react-router-dom";
-import UserAuth from "../firebase/UserAuth";
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "../context/AuthContext";
+import { useEffect, useState } from "react";
 import { LoadingFull } from "../components/Loading";
 import PropTypes from "prop-types";
 import Sidebar from "../components/Sidebar";
-import { onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchNotes } from "../app/reducers/notesSlice";
 import {
-    fetchNotes,
-    selectNotesAndStarredNotes,
-} from "../app/reducers/notesSlice";
+    fetchUserData,
+    setAuthState,
+    setUserData,
+} from "../app/reducers/userSlice";
+import { getAuth } from "firebase/auth";
+import { app } from "../firebase";
+import i18next from "i18next";
 
 function ProtectedRoute({ component: Component, ...rest }) {
-    const { authState, setAuthState } = useContext(AuthContext);
+    const { isAuthenticated, user } = useSelector((state) => state.user);
     const [loading, setLoading] = useState(true);
-    const { notes } = useSelector(selectNotesAndStarredNotes);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!authState.isAuthenticated) {
-            onAuthStateChanged(UserAuth.auth, async (user) => {
-                if (user) {
-                    setAuthState((data) => {
-                        return { ...data, isAuthenticated: true };
-                    });
-                } else {
-                    setAuthState((data) => {
-                        return { ...data, isAuthenticated: false };
-                    });
-                }
-                setLoading(false);
-            });
-        } else {
+        const auth = getAuth(app);
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                dispatch(fetchNotes());
+                dispatch(fetchUserData());
+                dispatch(setAuthState(true));
+            } else {
+                dispatch(setAuthState(false));
+            }
             setLoading(false);
-        }
-    }, [authState.isAuthenticated, setAuthState]);
+        });
+    }, [dispatch]);
 
+    // Update theme and language from local storage
     useEffect(() => {
-        if (authState.isAuthenticated && !loading && !notes.length) {
-            dispatch(fetchNotes());
+        const theme = localStorage.getItem("theme") || "light";
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
         }
-    }, [dispatch, notes.length, authState.isAuthenticated, loading]);
+        const lang = localStorage.getItem("i18nextLng") || "en";
+        i18next.changeLanguage(lang);
+        dispatch(setUserData({ theme, lang }));
+    }, [dispatch]);
+
+    // Update theme and language after user is fetched
+    useEffect(() => {
+        if (user !== null) {
+            i18next.changeLanguage(user.lang);
+            localStorage.setItem("i18nextLng", user.lang);
+            if (user.theme === "dark") {
+                document.documentElement.classList.add("dark");
+            }
+            localStorage.setItem("theme", user.theme);
+        }
+    }, [user]);
 
     if (loading) {
         return <LoadingFull />;
     }
 
-    return authState.isAuthenticated ? (
+    return isAuthenticated ? (
         <div className="flex">
             <Sidebar />
             <Component {...rest} />

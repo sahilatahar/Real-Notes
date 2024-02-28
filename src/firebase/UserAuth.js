@@ -6,6 +6,7 @@ import {
     sendPasswordResetEmail,
     signInWithEmailAndPassword,
     signOut,
+    updatePassword,
     updateProfile,
 } from "firebase/auth";
 import {
@@ -18,6 +19,7 @@ import profileImgTemp from "../assets/profile.jpg";
 import { dismissToast, showToast } from "../utils/toast";
 import { app, storage } from "./";
 import FirebaseNote from "./FirebaseNote";
+import User from "./User";
 
 class UserAuth {
     constructor() {
@@ -40,11 +42,8 @@ class UserAuth {
                 userData.password,
             );
 
-            dismissToast();
-            showToast("loading", "Creating account...");
             const user = userCredential.user;
             this.uid = user.uid;
-            localStorage.setItem("userID", user.uid);
 
             // Upload profile image
             if (userData.image === null) {
@@ -77,9 +76,16 @@ class UserAuth {
                     displayName: `${userData.fName.trim()} ${userData.lName.trim()}`,
                     photoURL: photoURL,
                 });
+                const userDetails = {
+                    email: userData.email,
+                    fName: userData.fName,
+                    lName: userData.lName,
+                    photoURL: photoURL,
+                    theme: "light",
+                    lang: "en",
+                };
+                await User.setUserData(userDetails, user.uid);
             }
-            dismissToast();
-            showToast("success", "Account created successfully");
             return true;
         } catch (error) {
             console.log(error);
@@ -120,7 +126,6 @@ class UserAuth {
             );
             let user = userCredential.user;
             this.uid = user.uid;
-            localStorage.setItem("userID", user.uid);
             dismissToast();
             return true;
         } catch (error) {
@@ -150,7 +155,6 @@ class UserAuth {
     };
 
     signOut = async () => {
-        localStorage.removeItem("userID");
         FirebaseNote.uid = null;
         await signOut(this.auth)
             .then(() => {
@@ -184,13 +188,29 @@ class UserAuth {
         dismissToast();
         showToast("loading", "Changing password...");
         try {
-            await this.auth.currentUser.updatePassword(newPassword);
+            await updatePassword(this.auth.currentUser, newPassword);
             dismissToast();
             showToast("success", "Password changed successfully");
         } catch (error) {
             dismissToast();
-            showToast("error", "Password change error");
             console.log(error);
+            switch (error.code) {
+                case "auth/weak-password":
+                    showToast(
+                        "error",
+                        "Password is not strong enough. Add additional characters including special characters and numbers.",
+                    );
+                    break;
+                case "auth/requires-recent-login":
+                    showToast(
+                        "error",
+                        "Please logout and login again to change your password",
+                    );
+                    break;
+                default:
+                    showToast("error", "Password change failed");
+                    console.log(error);
+            }
         }
     };
     updateName = async (newUserData) => {
@@ -221,17 +241,13 @@ class UserAuth {
                 this.storageRef,
                 `users/${this.uid}/profile.jpg`,
             );
-            uploadBytesResumable(imageRef, image)
-                .then(() => {
-                    dismissToast();
-                    showToast("success", "Profile image updated successfully");
-                })
-                .catch((error) => {
-                    dismissToast();
-                    showToast("error", "Profile image update error");
-                    console.log(error);
-                });
+            await uploadBytesResumable(imageRef, image);
+            dismissToast();
+            showToast("success", "Profile image updated successfully");
+            return await getDownloadURL(imageRef);
         } catch (error) {
+            dismissToast();
+            showToast("error", "Profile image update failed");
             console.log(error);
         }
     };

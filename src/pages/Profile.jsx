@@ -1,81 +1,71 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import tempProfileImage from "../assets/profile.jpg";
-import AuthContext from "../context/AuthContext";
 import UserAuth from "../firebase/UserAuth";
 import { dismissToast, showToast } from "../utils/toast";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    fetchUserData,
+    selectUser,
+    setAuthState,
+    setUserData,
+} from "../app/reducers/userSlice";
+import User from "../firebase/User";
+import { LoadingFull } from "../components/Loading";
 
 function Profile() {
-    const [userData, setUserData] = useState({
+    const user = useSelector(selectUser);
+    const [userState, setUserState] = useState({
         fName: "",
         lName: "",
         email: "",
         newPassword: "",
         confirmNewPassword: "",
-        imgURL: tempProfileImage,
+        photoURL: tempProfileImage,
     });
     const inputFileRef = useRef(null);
-
-    const { authState, setAuthState } = useContext(AuthContext);
     const { t } = useTranslation();
     const { btnLabel, description, label, title } = t("Profile");
+    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (authState.isAuthenticated && authState.user === null) {
+        if (user?.photoURL === undefined) {
             dismissToast();
-            showToast("loading", "Loading profile data...");
-            const fetchUserData = async () => {
-                let user = await UserAuth.getUserData();
-                let imgUrl = await UserAuth.getImageURL();
-                if (imgUrl === null) {
-                    dismissToast();
-                    showToast("error", "Error loading image");
-                }
-                const userInfo = {
-                    fName: user.fName || "",
-                    lName: user.lName || "",
-                    email: user.email || "",
-                    imgURL: imgUrl || "",
-                };
-                setUserData((userData) => {
-                    return {
-                        ...userData,
-                        ...userInfo,
-                    };
-                });
-
-                setAuthState((data) => {
-                    return { ...data, user: userInfo };
-                });
-                dismissToast();
-            };
-            fetchUserData();
+            dispatch(fetchUserData());
         } else {
-            setUserData((userData) => {
+            setUserState((pre) => {
                 return {
-                    ...userData,
-                    ...authState.user,
+                    ...pre,
+                    email: user.email,
+                    fName: user.fName,
+                    lName: user.lName,
+                    photoURL: user.photoURL,
                 };
             });
+            setLoading(false);
         }
-    }, [authState.isAuthenticated, setAuthState, authState]);
+    }, [dispatch, user]);
 
     const changePassword = async () => {
-        if (userData.newPassword === "" || userData.confirmNewPassword === "") {
+        if (
+            userState.newPassword === "" ||
+            userState.confirmNewPassword === ""
+        ) {
             dismissToast();
             showToast("error", "Password cannot be empty");
         }
-        if (userData.newPassword !== userData.confirmNewPassword) {
+        if (userState.newPassword !== userState.confirmNewPassword) {
             dismissToast();
             showToast("error", "Passwords do not match");
             return;
         }
-        await UserAuth.changePassword(userData.newPassword);
+        await UserAuth.changePassword(userState.newPassword);
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUserData({ ...userData, [name]: value });
+        setUserState({ ...userState, [name]: value });
     };
 
     const handleImageChange = async (e) => {
@@ -88,15 +78,11 @@ function Profile() {
             showToast("info", "Image size should be less than 2 MB");
             return;
         }
-        setUserData({
-            ...userData,
-            imgURL: URL.createObjectURL(image),
-            image: image,
-        });
-        await UserAuth.updateImage(userData.image);
-        setAuthState((data) => {
-            return { ...data, user: { ...data.user, imgURL: userData.imgURL } };
-        });
+        const photoURL = await UserAuth.updateImage(image);
+        const updatedUserData = { ...user, photoURL };
+        setUserState({ ...userState, photoURL });
+        dispatch(setUserData({ ...user, photoURL }));
+        await User.updateUserData(updatedUserData);
     };
 
     const updateImage = () => {
@@ -104,19 +90,23 @@ function Profile() {
     };
 
     const updateName = async () => {
-        if (userData.fName === "") {
+        if (userState.fName === "") {
             dismissToast();
             showToast("error", "First Name cannot be empty");
             return;
         }
-        await UserAuth.updateName(userData);
-        setAuthState((data) => {
-            return { ...data, user: { ...data.user, ...userData } };
-        });
+        await UserAuth.updateName(userState);
+        const updatedUserData = {
+            ...user,
+            fName: userState.fName,
+            lName: userState.lName,
+        };
+        dispatch(setUserData(updatedUserData));
+        await User.updateUserData(updatedUserData);
     };
 
     const sendResetEmail = async () => {
-        await UserAuth.sendResetPasswordEmail(userData.email);
+        await UserAuth.sendResetPasswordEmail(userState.email);
     };
 
     const deleteUserAccount = async () => {
@@ -126,27 +116,24 @@ function Profile() {
         if (!isConfirmed) return;
         let isDeleted = await UserAuth.deleteAccount();
         if (isDeleted) {
-            localStorage.removeItem("userID");
-            setAuthState((data) => {
-                return { ...data, isAuthenticated: false };
-            });
+            dispatch(setAuthState(false));
         }
     };
 
     const handleImageLoadError = () => {
-        setUserData((userData) => {
-            return {
-                ...userData,
-                imgURL: tempProfileImage,
-            };
+        setUserState({
+            ...userState,
+            photoURL: tempProfileImage,
         });
     };
+
+    if (loading) return <LoadingFull />;
 
     return (
         <div className="flex max-h-screen flex-grow flex-col items-center gap-6 overflow-y-scroll px-4 py-8 pb-[4.5rem] sm:p-10 md:pb-8 lg:flex-row lg:items-start lg:justify-center">
             <div className="w-[250px] rounded-2xl bg-cardLight p-4 shadow-lg dark:bg-cardDark md:p-4">
                 <img
-                    src={userData.imgURL}
+                    src={userState.photoURL}
                     alt="User Image"
                     className="block aspect-square w-full max-w-full rounded-xl object-cover"
                     onError={handleImageLoadError}
@@ -174,8 +161,8 @@ function Profile() {
                                 type="text"
                                 name="fName"
                                 id="fName"
-                                onInput={handleChange}
-                                value={userData.fName}
+                                onChange={handleChange}
+                                value={userState.fName}
                                 className="input-style"
                             />
                         </div>
@@ -185,8 +172,8 @@ function Profile() {
                                 type="text"
                                 name="lName"
                                 id="lName"
-                                onInput={handleChange}
-                                value={userData.lName}
+                                onChange={handleChange}
+                                value={userState.lName}
                                 className="input-style"
                             />
                         </div>
@@ -204,8 +191,8 @@ function Profile() {
                                 type="password"
                                 name="newPassword"
                                 id="newPassword"
-                                onInput={handleChange}
-                                value={userData.newPassword}
+                                onChange={handleChange}
+                                value={userState.newPassword}
                                 className="input-style"
                             />
                         </div>
@@ -217,8 +204,8 @@ function Profile() {
                                 type="text"
                                 name="confirmNewPassword"
                                 id="confirmNewPassword"
-                                onInput={handleChange}
-                                value={userData.confirmNewPassword}
+                                onChange={handleChange}
+                                value={userState.confirmNewPassword}
                                 className="input-style"
                             />
                         </div>

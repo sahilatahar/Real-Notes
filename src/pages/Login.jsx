@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
 import UserAuth from "../firebase/UserAuth";
+import { useDispatch } from "react-redux";
+import { setAuthState } from "../app/reducers/userSlice";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -13,8 +14,7 @@ const Login = () => {
         email: "",
         password: "",
     });
-
-    const { setAuthState } = useContext(AuthContext);
+    const dispatch = useDispatch();
 
     const gotoRegister = () => {
         navigate("/register");
@@ -50,9 +50,7 @@ const Login = () => {
         if (validateForm()) {
             let isLoggedIn = await UserAuth.login(userData);
             if (isLoggedIn) {
-                setAuthState((auth) => {
-                    return { ...auth, isAuthenticated: true };
-                });
+                dispatch(setAuthState(true));
                 navigate("/");
             }
         }
@@ -75,7 +73,7 @@ const Login = () => {
                             autoComplete="current-email"
                             className="input-style"
                         />
-                        <span className="email-error">{errorMsg.email}</span>
+                        <span className="text-danger">{errorMsg.email}</span>
                     </div>
                     <div className="input-group">
                         <input
@@ -87,7 +85,7 @@ const Login = () => {
                             autoComplete="current-email"
                             className="input-style"
                         />
-                        <span className="password-error">
+                        <span className="text-danger">
                             {errorMsg.password}
                         </span>
                     </div>

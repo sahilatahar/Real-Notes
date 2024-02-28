@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import noNotesImg from "../assets/noNotes.svg";
-import TabContext from "../context/TabContext";
+import { useTabs } from "../context/TabContext";
 import { useTranslation } from "react-i18next";
 import { useSearch } from "../context/SearchContext";
 
 function NoNotesFound() {
     const { searchQuery } = useSearch();
-    const { isStarredTab } = useContext(TabContext);
+    const { isStarredTab } = useTabs();
     const { t } = useTranslation();
     const {
         noNotes,

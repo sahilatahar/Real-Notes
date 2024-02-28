@@ -4,7 +4,6 @@ import {
     createSlice,
 } from "@reduxjs/toolkit";
 import FirebaseNote from "../../firebase/FirebaseNote";
-import { dismissToast, showToast } from "../../utils/toast";
 
 const initialState = {
     notes: [],
@@ -59,15 +58,13 @@ const notesSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchNotes.pending, (state) => {
             state.status = "loading";
-            showToast("loading", "Fetching notes...");
         });
         builder.addCase(fetchNotes.fulfilled, (state, action) => {
-            state.status = "idle";
+            state.status = "done";
             state.notes = action.payload;
-            dismissToast();
         });
         builder.addCase(fetchNotes.rejected, (state, action) => {
-            state.status = "idle";
+            state.status = "failed";
             state.error = action.error.message;
         });
     },

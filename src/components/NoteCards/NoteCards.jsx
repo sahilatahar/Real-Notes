@@ -1,16 +1,15 @@
-import { useContext } from "react";
 import { useSelector } from "react-redux";
 import {
     selectDeletedNotes,
     selectNotesAndStarredNotes,
 } from "../../app/reducers/notesSlice";
-import TabContext from "../../context/TabContext";
 import { sortNotes } from "../../utils/sortUtils";
 import NoNotesFound from "../NoNotesFound";
 import NoteCard from "./NoteCard";
 import Loading from "../Loading";
 import { useSearch } from "../../context/SearchContext";
 import getSearchedNotes from "../../helpers/getSearchedNotes";
+import { useTabs } from "../../context/TabContext";
 
 function NoteCards() {
     const { searchQuery } = useSearch();
@@ -19,7 +18,7 @@ function NoteCards() {
     const { filteredNotes, filteredStarredNotes } =
         getSearchedNotes(notes)(searchQuery);
     const status = useSelector((state) => state.notes.status);
-    const { isStarredTab } = useContext(TabContext);
+    const { isStarredTab } = useTabs();
     const isDeletedPage = window.location.pathname.includes("deleted");
 
     // Show loading if notes are loading

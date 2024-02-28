@@ -1,14 +1,17 @@
 import { useTranslation } from "react-i18next";
 import languages from "../../utils/languages";
-import PropTypes from "prop-types";
+import useLanguage from "../../hooks/useLanguage";
+import { selectUser } from "../../app/reducers/userSlice";
+import { useSelector } from "react-redux";
 
-function LanguageSelector({ setCurrentLang }) {
+function LanguageSelector() {
     const { t } = useTranslation();
     const { btnLabel } = t("Sidebar");
+    const { changeLanguage } = useLanguage();
+    const user = useSelector(selectUser);
 
     const handleLanguageChange = (e) => {
-        const code = e.target.value;
-        setCurrentLang(code);
+        changeLanguage(e.target.value);
     };
 
     return (
@@ -17,7 +20,7 @@ function LanguageSelector({ setCurrentLang }) {
                 {btnLabel.changeLang}
             </label>
             <select
-                defaultValue="default"
+                defaultValue={user.lang}
                 id="language-select"
                 onChange={handleLanguageChange}
                 className="sidebar-item w-full border-none outline-none"
@@ -37,9 +40,5 @@ function LanguageSelector({ setCurrentLang }) {
         </div>
     );
 }
-
-LanguageSelector.propTypes = {
-    setCurrentLang: PropTypes.func.isRequired,
-};
 
 export default LanguageSelector;

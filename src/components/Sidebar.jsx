@@ -1,41 +1,41 @@
 import {
     House,
     List,
+    Moon,
     Plus,
     SignOut,
     Sun,
-    User,
-    Moon,
     Trash,
+    User as UserIcon,
 } from "@phosphor-icons/react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthContext";
+import { selectUser, setAuthState } from "../app/reducers/userSlice";
 import UserAuth from "../firebase/UserAuth";
 import useWindowDimensions from "../hooks/useWindowDimensions";
-import { useTranslation } from "react-i18next";
 import LanguageSelector from "./SidebarComponents/LanguageSelector";
 import LanguageSelectorMobile from "./SidebarComponents/LanguageSelectorMobile";
-import useLanguages from "../hooks/useLanguages";
-import ThemeContext from "../context/ThemeContext";
 import Menu from "./SidebarComponents/Menu";
+import useTheme from "../hooks/useTheme";
 
 const Sidebar = () => {
     const navigate = useNavigate();
-    const { setAuthState } = useContext(AuthContext);
     const { isMobile } = useWindowDimensions();
     const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
-    const { setCurrentLang } = useLanguages();
-    const { toggleTheme, theme } = useContext(ThemeContext);
     const { t } = useTranslation();
     const { title, btnLabel } = t("Sidebar");
+    const dispatch = useDispatch();
+    const user = useSelector(selectUser);
+    const { toggleTheme } = useTheme();
 
     const signOut = async () => {
         let isSignOut = await UserAuth.signOut();
         if (isSignOut) {
-            setAuthState((data) => {
-                return { ...data, isAuthenticated: false };
-            });
+            localStorage.removeItem("theme");
+            localStorage.removeItem("i18nextLng");
+            dispatch(setAuthState(false));
         }
     };
 
@@ -50,12 +50,12 @@ const Sidebar = () => {
             onClick: () => navigate("/"),
         },
         {
-            icon: <User size="30" />,
+            icon: <UserIcon size="30" />,
             label: btnLabel.profile,
             onClick: () => navigate("/profile"),
         },
         {
-            icon: theme == "dark" ? <Moon size={30} /> : <Sun size={30} />,
+            icon: user.theme == "dark" ? <Moon size={30} /> : <Sun size={30} />,
             label: btnLabel.theme,
             onClick: toggleTheme,
         },
@@ -120,7 +120,7 @@ const Sidebar = () => {
                         </button>
                     ))}
                     {/* Change Language button only for mobile devices */}
-                    <LanguageSelectorMobile setCurrentLang={setCurrentLang} />
+                    <LanguageSelectorMobile />
                     {/* Deleted Notes Button for Desktop*/}
                     <button
                         className={sidebarItemClassName + " hidden md:flex"}
@@ -133,9 +133,7 @@ const Sidebar = () => {
             </section>
             <section className="hidden flex-row gap-8 md:flex md:flex-col md:gap-2">
                 {/* Language Select Option */}
-                {isSidebarOpen && (
-                    <LanguageSelector setCurrentLang={setCurrentLang} />
-                )}
+                {isSidebarOpen && <LanguageSelector />}
                 <button className={sidebarItemClassName} onClick={signOut}>
                     <SignOut size="30" />
                     {isSidebarOpen && <span>{btnLabel.logout}</span>}

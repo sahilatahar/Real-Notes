@@ -1,30 +1,27 @@
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, setTheme } from "../app/reducers/userSlice";
+import User from "../firebase/User";
 
 function useTheme() {
-    const [theme, setTheme] = useState("dark");
+    const user = useSelector(selectUser);
+    const dispatch = useDispatch();
 
-    const toggleTheme = () => {
-        if (theme === "dark") {
+    const toggleTheme = async () => {
+        if (user.theme === "dark") {
             document.documentElement.classList.remove("dark");
+            dispatch(setTheme("light"));
             localStorage.setItem("theme", "light");
-            setTheme("light");
+            await User.updateTheme("light");
             return;
         } else {
             document.documentElement.classList.add("dark");
+            dispatch(setTheme("dark"));
             localStorage.setItem("theme", "dark");
-            setTheme("dark");
+            await User.updateTheme("dark");
         }
     };
 
-    useEffect(() => {
-        const savedTheme = localStorage.getItem("theme") || "light";
-        if (savedTheme) {
-            document.documentElement.classList.add(savedTheme);
-            setTheme(savedTheme);
-        }
-    }, []);
-
-    return { toggleTheme, theme, setTheme };
+    return { toggleTheme };
 }
 
 export default useTheme;

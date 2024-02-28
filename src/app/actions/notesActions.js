@@ -20,7 +20,7 @@ export const addNoteAction = async (note, dispatch) => {
         return true;
     } catch (error) {
         dismissToast();
-        showToast("error", "Note adding error!");
+        showToast("error", "Note adding failed!");
         console.log(error);
     }
     return false;
@@ -36,7 +36,7 @@ export const updateNoteAction = async (note, dispatch) => {
         return true;
     } catch (error) {
         dismissToast();
-        showToast("error", "Note update error!");
+        showToast("error", "Note update failed!");
         console.log(error);
     }
 };
@@ -53,13 +53,12 @@ export const updateNoteStarAction = async (note, dispatch) => {
         );
     } catch (e) {
         dismissToast();
-        showToast("error", "Note starred error!");
+        showToast("error", "Note star update failed!");
         console.log(e);
     }
 };
 
 export const deleteNoteAction = async ({ note, dispatch, deletedNotes }) => {
-    showToast("loading", "Deleting note...");
     const updatedNote = { ...note, deleted: true };
     try {
         await FirebaseNote.updateNote(note.id, updatedNote);
@@ -69,7 +68,7 @@ export const deleteNoteAction = async ({ note, dispatch, deletedNotes }) => {
         showToast("success", "Note deleted successfully");
     } catch (error) {
         dismissToast();
-        showToast("error", "Note delete error!");
+        showToast("error", "Note deletion failed!");
         console.log(error);
     }
     return false;
@@ -80,9 +79,6 @@ export const permanentlyDeleteNoteAction = async (
     dispatch,
     toast = true,
 ) => {
-    if (toast) {
-        showToast("loading", "Deleting note...");
-    }
     try {
         await FirebaseNote.deleteNote(note.id);
         dispatch(deleteNote(note.id));
@@ -93,7 +89,7 @@ export const permanentlyDeleteNoteAction = async (
     } catch (error) {
         if (toast) {
             dismissToast();
-            showToast("error", "Note delete error!");
+            showToast("error", "Note delete failed!");
         }
         console.log(error);
     }

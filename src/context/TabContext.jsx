@@ -1,26 +1,27 @@
-import PropTypes from "prop-types"
-import { createContext, useState } from "react"
+import PropTypes from "prop-types";
+import { useContext } from "react";
+import { createContext, useState } from "react";
 
-const TabContext = createContext()
+const TabContext = createContext();
 
-const TabProvider = ({ children }) => {
-	const [isStarredTab, setIsStarredTab] = useState(false)
-	return (
-		<TabContext.Provider
-			value={{
-				isStarredTab,
-				setIsStarredTab,
-			}}
-		>
-			{children}
-		</TabContext.Provider>
-	)
-}
+export const TabProvider = ({ children }) => {
+    const [isStarredTab, setIsStarredTab] = useState(false);
+    return (
+        <TabContext.Provider
+            value={{
+                isStarredTab,
+                setIsStarredTab,
+            }}
+        >
+            {children}
+        </TabContext.Provider>
+    );
+};
 
 TabProvider.propTypes = {
-	children: PropTypes.node,
-}
+    children: PropTypes.node,
+};
 
-export default TabContext
-export { TabProvider }
-
+export const useTabs = () => {
+    return useContext(TabContext);
+};

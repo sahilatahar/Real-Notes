@@ -2,12 +2,13 @@ import { Globe } from "@phosphor-icons/react";
 import languages from "../../utils/languages";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import PropTypes from "prop-types";
+import useLanguage from "../../hooks/useLanguage";
 
-function LanguageSelectorMobile({ setCurrentLang }) {
+function LanguageSelectorMobile() {
     const modalRef = useRef();
     const { t } = useTranslation();
     const { btnLabel } = t("Sidebar");
+    const { changeLanguage } = useLanguage();
 
     const showModal = () => {
         modalRef.current.classList.remove("hidden");
@@ -18,10 +19,10 @@ function LanguageSelectorMobile({ setCurrentLang }) {
         modalRef.current.classList.add("hidden");
     };
 
-    const handleLanguageChange = (e) => {
+    const handleLanguageChange = async (e) => {
         e.stopPropagation();
         const code = e.target.getAttribute("data-code");
-        setCurrentLang(code);
+        changeLanguage(code);
         hideModal();
     };
 
@@ -67,9 +68,5 @@ function LanguageSelectorMobile({ setCurrentLang }) {
         </>
     );
 }
-
-LanguageSelectorMobile.propTypes = {
-    setCurrentLang: PropTypes.func.isRequired,
-};
 
 export default LanguageSelectorMobile;

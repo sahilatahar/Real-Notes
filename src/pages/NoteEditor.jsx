@@ -6,11 +6,7 @@ import {
     deleteNoteAction,
     updateNoteAction,
 } from "../app/actions/notesActions";
-import {
-    selectDeletedNotes,
-    selectNoteById,
-    selectNotesAndStarredNotes,
-} from "../app/reducers/notesSlice";
+import { selectDeletedNotes, selectNoteById } from "../app/reducers/notesSlice";
 import { getCurrentDate } from "../utils/dateUtils";
 import { dismissToast, showToast } from "../utils/toast";
 import { useTranslation } from "react-i18next";
@@ -107,15 +103,15 @@ function NoteEditor({ isNew = false }) {
     return (
         <>
             <div className="h-screen max-h-screen min-h-screen flex-grow  flex-col overflow-y-scroll bg-cardLight pb-[7rem] dark:bg-cardDark md:bg-bgLight md:py-4 md:dark:bg-bgDark">
-                <div className="mx-auto w-full space-y-4 rounded-lg px-4 md:w-5/6 md:py-4">
-                    <div className="flex items-center justify-between">
-                        <h2 className="relative flex-grow py-8 text-3xl font-bold leading-8 md:py-4">
+                <div className="mx-auto w-full space-y-4 rounded-lg px-4 md:w-5/6">
+                    <div className="flex items-center justify-between pb-4 pt-8 md:py-4">
+                        <h2 className="relative flex-grow text-3xl font-bold leading-8 ">
                             {isNew ? title.create : title.edit}
                         </h2>
                         <button
                             onClick={handleNoteStar}
                             title="Star Note"
-                            className="mr-4 aspect-square cursor-pointer rounded-full text-star"
+                            className="mr-4 flex aspect-square cursor-pointer items-center justify-center rounded-full text-star"
                         >
                             {noteState.starred ? (
                                 <Star size="30" weight="fill" />
@@ -127,7 +123,7 @@ function NoteEditor({ isNew = false }) {
                             <button
                                 onClick={(e) => handleDeleteNote(e, note)}
                                 title="Delete Note"
-                                className="aspect-square cursor-pointer rounded-full text-danger"
+                                className="flex aspect-square cursor-pointer items-center justify-center rounded-full text-danger"
                             >
                                 <Trash size="30" weight="fill" />
                             </button>

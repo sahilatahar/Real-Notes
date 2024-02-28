@@ -92,10 +92,7 @@ function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateForm()) {
-            let isSignUp = await UserAuth.signUp(userData);
-            if (isSignUp) {
-                navigate("/");
-            }
+            await UserAuth.signUp(userData);
         }
     };
 
@@ -132,7 +129,7 @@ function Register() {
                                 onInput={handleChange}
                                 className="input-style"
                             />
-                            <span className="fName-error">
+                            <span className="text-danger">
                                 {errorMsg.fName}
                             </span>
                         </div>
@@ -158,7 +155,7 @@ function Register() {
                             autoComplete="current-email"
                             className="input-style"
                         />
-                        <span className="email-error">{errorMsg.email}</span>
+                        <span className="text-danger">{errorMsg.email}</span>
                     </div>
                     <div className="input-group">
                         <input
@@ -170,9 +167,7 @@ function Register() {
                             autoComplete="current-email"
                             className="input-style"
                         />
-                        <span className="password-error">
-                            {errorMsg.password}
-                        </span>
+                        <span className="text-danger">{errorMsg.password}</span>
                     </div>
 
                     <div className="input-group">
@@ -184,7 +179,7 @@ function Register() {
                             onInput={handleChange}
                             className="input-style"
                         />
-                        <span className="confirmPassword-error">
+                        <span className="text-danger">
                             {errorMsg.confirmPassword}
                         </span>
                     </div>
