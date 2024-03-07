@@ -19,7 +19,7 @@ A note-taking application with CRUD operations, authentication, profile manageme
 
 ## 🚀 Live Preview
 
-You can view the live preview of the project [here.](realnotes.netlify.app)
+You can view the live preview of the project [here.](https://realnotes.netlify.app)
 
 ## 💻 Tech Stack
 
